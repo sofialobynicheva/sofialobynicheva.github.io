@@ -233,7 +233,7 @@ section {
   text-wrap: balance;
 }
 
-/* ── PROJECTS ── */
+/* ── PROJECT GRID ── */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -253,7 +253,7 @@ section {
               0 8px 36px rgba(var(--ar),.07);
 }
 
-/* media carousel */
+/* ── CAROUSEL ── */
 .p-media {
   width: 100%; aspect-ratio: 16/9;
   background: var(--surface);
@@ -280,7 +280,6 @@ section {
   width: 100%; height: 100%; object-fit: cover;
   position: absolute; inset: 0;
 }
-/* dots */
 .p-dots {
   position: absolute; bottom: .6rem; left: 50%;
   transform: translateX(-50%);
@@ -292,11 +291,7 @@ section {
   transition: background .2s, transform .2s;
   cursor: pointer; border: none; padding: 0;
 }
-.p-dot.active {
-  background: #fff;
-  transform: scale(1.3);
-}
-/* hide dots when only one slide */
+.p-dot.active { background: #fff; transform: scale(1.3); }
 .p-dots:has(.p-dot:only-child) { display: none; }
 
 /* placeholder slide */
@@ -375,7 +370,6 @@ section {
   gap: 3rem;
 }
 @media (max-width: 780px) { .skills-grid { grid-template-columns: 1fr; gap: 2.25rem; } }
-
 .sg-title {
   font-family: 'JetBrains Mono', monospace;
   font-size: .7rem; font-weight: 500;
@@ -400,12 +394,8 @@ section {
   gap: 5rem; align-items: start;
 }
 @media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
-
-.about-bio {
-  font-size: 1.02rem; color: var(--text-2); line-height: 1.78;
-}
+.about-bio { font-size: 1.02rem; color: var(--text-2); line-height: 1.78; }
 .about-bio + .about-bio { margin-top: 1rem; }
-
 .edu-block {
   border-left: 2px solid var(--accent);
   padding-left: 1.35rem; margin-bottom: 1.75rem;
@@ -419,7 +409,6 @@ section {
   font-family: 'JetBrains Mono', monospace;
   font-size: .68rem; color: var(--text-3); letter-spacing: .04em;
 }
-
 .certs { margin-top: 2.5rem; }
 .certs-label {
   font-family: 'JetBrains Mono', monospace;
@@ -465,13 +454,11 @@ footer {
 }
 .f-link:hover { color: var(--accent); }
 
-/* ── RESPONSIVE NAV ── */
+/* ── RESPONSIVE ── */
 @media (max-width: 640px) {
   .nav-links { display: none; }
   nav { padding: 0 1.5rem; }
 }
-
-/* ── FOCUS ── */
 a:focus-visible, button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px; border-radius: 2px;
@@ -484,7 +471,9 @@ a:focus-visible, button:focus-visible {
 <nav>
   <span class="nav-brand">sofia lobynicheva</span>
   <ul class="nav-links">
-    <li><a href="#projects">projects</a></li>
+    <li><a href="#cad">cad</a></li>
+    <li><a href="#hardware">hardware</a></li>
+    <li><a href="#automotive">automotive</a></li>
     <li><a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">linkedin</a></li>
     <li><a href="#about">about</a></li>
   </ul>
@@ -518,7 +507,7 @@ a:focus-visible, button:focus-visible {
   <p class="hero-sub">Engineering Student · Texas A&amp;M '30</p>
   <p class="hero-bio">General engineering student with roots in robotics, CAD design, and systems programming. I build things that live at the edge of hardware and software.</p>
   <div class="hero-ctas">
-    <a href="#projects" class="btn-primary">Projects ↓</a>
+    <a href="#cad" class="btn-primary">Projects ↓</a>
     <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
   </div>
   <div class="hero-scroll" aria-hidden="true">
@@ -527,17 +516,93 @@ a:focus-visible, button:focus-visible {
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <p class="s-eye">// projects</p>
-  <h2 class="s-title">What I've Built</h2>
+<!-- CAD -->
+<section id="cad">
+  <p class="s-eye">// cad</p>
+  <h2 class="s-title">CAD</h2>
 
   <div class="project-grid">
 
-    <!-- ① Omnidirectional Sensing Module -->
     <article class="project-card">
       <div class="p-media">
-        <div class="p-slides" id="slides-1">
+        <div class="p-slides" id="slides-c1">
+          <div class="p-slide">
+            <div class="media-ph">
+              <div class="ph-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="m21 15-5-5L5 21"/>
+                </svg>
+              </div>
+              <span class="ph-label">Add media</span>
+              <span class="ph-hint">photo · render · video</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-dots" id="dots-c1"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">CAD</span>
+          <span class="p-year">202X</span>
+        </div>
+        <h3 class="p-title">Project Title</h3>
+        <p class="p-desc">Replace this with your project description.</p>
+        <div class="p-tags">
+          <span class="tag">Fusion 360</span>
+          <span class="tag">3D Print</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-c2">
+          <div class="p-slide">
+            <div class="media-ph">
+              <div class="ph-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="m21 15-5-5L5 21"/>
+                </svg>
+              </div>
+              <span class="ph-label">Add media</span>
+              <span class="ph-hint">photo · render · video</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-dots" id="dots-c2"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">CAD</span>
+          <span class="p-year">202X</span>
+        </div>
+        <h3 class="p-title">Project Title</h3>
+        <p class="p-desc">Replace this with your project description.</p>
+        <div class="p-tags">
+          <span class="tag">Fusion 360</span>
+          <span class="tag">3D Print</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section id="hardware">
+  <p class="s-eye">// hardware</p>
+  <h2 class="s-title">Hardware</h2>
+
+  <div class="project-grid">
+
+    <!-- Sentry Light -->
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-h1">
           <div class="p-slide">
             <img src="sentry1.jpg" alt="Omnidirectional Sensing Module">
           </div>
@@ -548,11 +613,11 @@ a:focus-visible, button:focus-visible {
             <img src="sentry2.jpg" alt="Omnidirectional Sensing Module detail">
           </div>
         </div>
-        <div class="p-dots" id="dots-1"></div>
+        <div class="p-dots" id="dots-h1"></div>
       </div>
       <div class="p-info">
         <div class="p-meta">
-          <span class="p-cat">Robotics · Hardware</span>
+          <span class="p-cat">Hardware · Embedded</span>
           <span class="p-year">2025</span>
         </div>
         <h3 class="p-title">Omnidirectional Sensing Module</h3>
@@ -567,10 +632,9 @@ a:focus-visible, button:focus-visible {
       </div>
     </article>
 
-    <!-- ② Placeholder -->
     <article class="project-card">
       <div class="p-media">
-        <div class="p-slides" id="slides-2">
+        <div class="p-slides" id="slides-h2">
           <div class="p-slide">
             <div class="media-ph">
               <div class="ph-box">
@@ -585,27 +649,35 @@ a:focus-visible, button:focus-visible {
             </div>
           </div>
         </div>
-        <div class="p-dots" id="dots-2"></div>
+        <div class="p-dots" id="dots-h2"></div>
       </div>
       <div class="p-info">
         <div class="p-meta">
-          <span class="p-cat">Your Category</span>
+          <span class="p-cat">Hardware</span>
           <span class="p-year">202X</span>
         </div>
         <h3 class="p-title">Project Title</h3>
-        <p class="p-desc">Replace this with your project description — what you built, what problem it solved, and what you learned along the way.</p>
+        <p class="p-desc">Replace this with your project description.</p>
         <div class="p-tags">
           <span class="tag">Tool</span>
-          <span class="tag">Language</span>
           <span class="tag">Platform</span>
         </div>
       </div>
     </article>
 
-    <!-- ③ Placeholder -->
+  </div>
+</section>
+
+<!-- AUTOMOTIVE -->
+<section id="automotive">
+  <p class="s-eye">// automotive</p>
+  <h2 class="s-title">Automotive</h2>
+
+  <div class="project-grid">
+
     <article class="project-card">
       <div class="p-media">
-        <div class="p-slides" id="slides-3">
+        <div class="p-slides" id="slides-a1">
           <div class="p-slide">
             <div class="media-ph">
               <div class="ph-box">
@@ -620,27 +692,25 @@ a:focus-visible, button:focus-visible {
             </div>
           </div>
         </div>
-        <div class="p-dots" id="dots-3"></div>
+        <div class="p-dots" id="dots-a1"></div>
       </div>
       <div class="p-info">
         <div class="p-meta">
-          <span class="p-cat">Your Category</span>
+          <span class="p-cat">Automotive</span>
           <span class="p-year">202X</span>
         </div>
         <h3 class="p-title">Project Title</h3>
-        <p class="p-desc">Replace this with your project description — what you built, what problem it solved, and what you learned along the way.</p>
+        <p class="p-desc">Replace this with your project description.</p>
         <div class="p-tags">
           <span class="tag">Tool</span>
-          <span class="tag">Language</span>
           <span class="tag">Platform</span>
         </div>
       </div>
     </article>
 
-    <!-- ④ Placeholder -->
     <article class="project-card">
       <div class="p-media">
-        <div class="p-slides" id="slides-4">
+        <div class="p-slides" id="slides-a2">
           <div class="p-slide">
             <div class="media-ph">
               <div class="ph-box">
@@ -655,18 +725,17 @@ a:focus-visible, button:focus-visible {
             </div>
           </div>
         </div>
-        <div class="p-dots" id="dots-4"></div>
+        <div class="p-dots" id="dots-a2"></div>
       </div>
       <div class="p-info">
         <div class="p-meta">
-          <span class="p-cat">Your Category</span>
+          <span class="p-cat">Automotive</span>
           <span class="p-year">202X</span>
         </div>
         <h3 class="p-title">Project Title</h3>
-        <p class="p-desc">Replace this with your project description — what you built, what problem it solved, and what you learned along the way.</p>
+        <p class="p-desc">Replace this with your project description.</p>
         <div class="p-tags">
           <span class="tag">Tool</span>
-          <span class="tag">Language</span>
           <span class="tag">Platform</span>
         </div>
       </div>
@@ -783,18 +852,15 @@ a:focus-visible, button:focus-visible {
   var html = document.documentElement;
   var btn  = document.getElementById('themeBtn');
   var KEY  = 'sl-theme';
-
   function applyTheme(dark) {
     html.setAttribute('data-theme', dark ? 'dark' : 'light');
     if (dark) html.classList.add('theme-dark');
     else      html.classList.remove('theme-dark');
   }
-
   var saved;
   try { saved = localStorage.getItem(KEY); } catch(_) {}
   var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   applyTheme(saved !== null ? saved === 'dark' : sysDark);
-
   btn.addEventListener('click', function () {
     var nowDark = html.classList.contains('theme-dark');
     applyTheme(!nowDark);
