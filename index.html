@@ -717,32 +717,33 @@ a:focus-visible, button:focus-visible {
         <div class="p-media">
           <div class="p-slides" id="slides-h2">
             <div class="p-slide">
-              <div class="media-ph">
-                <div class="ph-box">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="3" y="3" width="18" height="18" rx="2"/>
-                    <circle cx="8.5" cy="8.5" r="1.5"/>
-                    <path d="m21 15-5-5L5 21"/>
-                  </svg>
-                </div>
-                <span class="ph-label">Add media</span>
-                <span class="ph-hint">photo · video · docs</span>
-              </div>
+              <img src="sentry1.jpg" alt="pic1">
+            </div>
+            <div class="p-slide">
+              <img src="sentry1.jpg" alt="pic1">
+            </div>
+            <div class="p-slide">
+              <img src="sentry1.jpg" alt="pic1">
+            </div>
+            <div class="p-slide">
+              <img src="sentry1.jpg" alt="pic1">
+            </div>
+            <div class="p-slide">
+              <img src="sentry2.jpg" alt="pic2">
             </div>
           </div>
           <div class="p-dots" id="dots-h2"></div>
         </div>
         <div class="p-info">
           <div class="p-meta">
-            <span class="p-cat">Hardware · Off-Grid</span>
+            <span class="p-cat">Hardware</span>
             <span class="p-year">2024</span>
           </div>
-          <h3 class="p-title">Solar Sentry System</h3>
-          <p class="p-desc">My street has no working streetlights — after my brother's bike was stolen off our porch I built a fix. Fully autonomous 12V DC system: 3×100W solar panels charge a 100Ah LiFePO4 battery all day, running perimeter LEDs continuously at night and triggering a 36W flood bar on motion. Hits float voltage by 2 PM in Texas sun — enough buffer for 2.5 nights of autonomy without sun. Total cost: ~$620 vs. $2,000+ to trench 120V AC to the street.</p>
+          <h3 class="p-title">Solar Sentry Light Project</h3>
+          <p class="p-desc">Pure 12V DC, fully off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a PWM/MPPT controller. Power runs via 10AWG feeder cable from the backyard to minimize voltage drop over the long run, distributing through 14AWG landscape wire and Wago 221 connectors for modular fault isolation. Two operating modes: a continuous 72W base load (two 18W + one 36W LED) running dusk to dawn, and a dormant 36W flood bar that triggers on motion for ~30 seconds. At 3.6A constant draw, the system still hits float voltage (14.5V) by 2PM in Texas sun with 2.5 nights of battery autonomy in overcast conditions. Total build cost: ~$620 versus $2,000+ to trench 120V AC to the street.</p>
           <div class="p-tags">
             <span class="tag">Solar</span>
             <span class="tag">LiFePO4</span>
-            <span class="tag">12V DC</span>
             <span class="tag">Off-Grid</span>
             <span class="tag">Embedded</span>
           </div>
