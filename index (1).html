@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofia Lobynicheva</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:          #f1eeff;
+  --surface:     #ffffff;
+  --card:        #f9f7ff;
+  --border:      #cec8f0;
+  --border-sub:  #e6e1f8;
+  --text:        #0e0a2c;
+  --text-2:      #524a8c;
+  --text-3:      #a89ec8;
+  --accent:      #6638c8;
+  --accent-2:    #2c60d4;
+  --ar:          104,56,200;
+  --orb-a:       rgba(102,56,200,.13);
+  --orb-b:       rgba(44,96,212,.10);
+  --nav-h:       62px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:         #06061a;
+    --surface:    #0e0d28;
+    --card:       #121130;
+    --border:     #201d4e;
+    --border-sub: #17163c;
+    --text:       #dcd7f8;
+    --text-2:     #8880b8;
+    --text-3:     #3c3a68;
+    --accent:     #9a78e8;
+    --accent-2:   #5888f5;
+    --ar:         154,120,232;
+    --orb-a:      rgba(154,120,232,.16);
+    --orb-b:      rgba(88,136,245,.12);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:         #06061a;
+  --surface:    #0e0d28;
+  --card:       #121130;
+  --border:     #201d4e;
+  --border-sub: #17163c;
+  --text:       #dcd7f8;
+  --text-2:     #8880b8;
+  --text-3:     #3c3a68;
+  --accent:     #9a78e8;
+  --accent-2:   #5888f5;
+  --ar:         154,120,232;
+  --orb-a:      rgba(154,120,232,.16);
+  --orb-b:      rgba(88,136,245,.12);
+}
+:root[data-theme="light"] {
+  --bg:          #f1eeff;
+  --surface:     #ffffff;
+  --card:        #f9f7ff;
+  --border:      #cec8f0;
+  --border-sub:  #e6e1f8;
+  --text:        #0e0a2c;
+  --text-2:      #524a8c;
+  --text-3:      #a89ec8;
+  --accent:      #6638c8;
+  --accent-2:    #2c60d4;
+  --ar:          104,56,200;
+  --orb-a:       rgba(102,56,200,.13);
+  --orb-b:       rgba(44,96,212,.10);
+}
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img, video { max-width: 100%; display: block; }
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-sub);
+  display: flex; align-items: center;
+  padding: 0 clamp(1.5rem, 6vw, 5rem);
+  z-index: 200; gap: 1.5rem;
+}
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--text-2); letter-spacing: .04em;
+  white-space: nowrap;
+}
+.nav-links { display: flex; gap: 1.75rem; list-style: none; margin-left: auto; }
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; color: var(--text-2);
+  letter-spacing: .05em; transition: color .18s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-right { display: flex; gap: .65rem; align-items: center; margin-left: 1.75rem; }
+.theme-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-3); font-size: 1rem;
+  padding: .3rem; line-height: 1;
+  transition: color .18s; display: flex; align-items: center;
+}
+.theme-btn:hover { color: var(--accent); }
+.icon-sun { display: none; }
+.icon-moon { display: inline; }
+html.theme-dark .icon-sun  { display: inline; }
+html.theme-dark .icon-moon { display: none; }
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+  padding-left:  clamp(2rem, 8vw, 7rem);
+  padding-right: clamp(2rem, 8vw, 7rem);
+  padding-bottom: 4rem;
+}
+.orb {
+  position: absolute; border-radius: 50%;
+  pointer-events: none; filter: blur(100px);
+}
+.orb-1 {
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, var(--orb-a) 0%, transparent 70%);
+  top: -160px; right: -80px;
+}
+.orb-2 {
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, var(--orb-b) 0%, transparent 70%);
+  bottom: 20px; left: -90px;
+}
+.hero-eye {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem; font-weight: 500;
+  color: var(--accent); letter-spacing: .12em;
+  text-transform: uppercase; margin-bottom: 1.25rem;
+}
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(3.4rem, 9vw, 7.5rem);
+  line-height: .96; letter-spacing: -.025em;
+  text-wrap: balance;
+  color: var(--text); margin-bottom: 1.5rem;
+}
+.hero-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .85rem; color: var(--text-2);
+  letter-spacing: .04em; margin-bottom: 1.75rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.hero-sub::before {
+  content: ''; display: inline-block;
+  width: 28px; height: 1px; background: var(--accent-2);
+}
+.hero-bio {
+  font-size: 1.05rem; color: var(--text-2);
+  max-width: 500px; line-height: 1.75; margin-bottom: 2.5rem;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem; letter-spacing: .07em; text-transform: uppercase;
+  color: #fff; background: var(--accent); border: none;
+  padding: .72rem 1.65rem; border-radius: 4px;
+  cursor: pointer; text-decoration: none;
+  transition: opacity .18s; display: inline-flex; align-items: center; gap: .45rem;
+}
+.btn-primary:hover { opacity: .82; }
+.btn-outline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--text-2); background: none;
+  border: 1px solid var(--border);
+  padding: .72rem 1.65rem; border-radius: 4px;
+  cursor: pointer; text-decoration: none;
+  transition: color .18s, border-color .18s;
+  display: inline-flex; align-items: center; gap: .45rem;
+}
+.btn-outline:hover { color: var(--accent); border-color: var(--accent); }
+.hero-scroll {
+  position: absolute; bottom: 2.25rem;
+  left: clamp(2rem, 8vw, 7rem);
+  display: flex; align-items: center; gap: .6rem;
+  color: var(--text-3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; letter-spacing: .09em; text-transform: uppercase;
+}
+.scroll-line {
+  width: 40px; height: 1px; background: var(--text-3);
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: .35; width: 40px; }
+  50%      { opacity: 1;   width: 58px; }
+}
+@media (prefers-reduced-motion: reduce) { .scroll-line { animation: none; } }
+/* ── SECTIONS ── */
+section {
+  padding: 6rem clamp(2rem, 8vw, 7rem);
+  border-top: 1px solid var(--border-sub);
+}
+.s-eye {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem; font-weight: 500;
+  color: var(--accent-2); letter-spacing: .12em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.s-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  line-height: 1.1; letter-spacing: -.02em;
+  color: var(--text); margin-bottom: 3.5rem;
+  text-wrap: balance;
+}
+/* ── PROJECT GRID ── */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+@media (max-width: 780px) { .project-grid { grid-template-columns: 1fr; } }
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+  transition: border-color .22s, box-shadow .22s;
+}
+.project-card:hover {
+  border-color: rgba(var(--ar), .42);
+  box-shadow: 0 0 0 1px rgba(var(--ar),.10),
+              0 8px 36px rgba(var(--ar),.07);
+}
+/* ── CAROUSEL ── */
+.p-media {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-sub);
+  position: relative; overflow: hidden;
+}
+.p-slides {
+  display: flex;
+  width: 100%; height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.p-slides::-webkit-scrollbar { display: none; }
+.p-slide {
+  flex: 0 0 100%; height: 100%;
+  scroll-snap-align: start;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.p-slide img,
+.p-slide video {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0;
+}
+/* dots */
+.p-dots {
+  position: absolute; bottom: .6rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: .35rem; z-index: 2;
+}
+.p-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  transition: background .2s, transform .2s;
+  cursor: pointer; border: none; padding: 0;
+}
+.p-dot.active { background: #fff; transform: scale(1.3); }
+.p-dots:has(.p-dot:only-child) { display: none; }
+/* arrow buttons */
+.p-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3; background: rgba(0,0,0,.45); border: none;
+  color: #fff; width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0; transition: opacity .18s;
+  pointer-events: none;
+}
+.p-media:hover .p-arrow { opacity: 1; pointer-events: auto; }
+.p-arrow:hover { background: rgba(0,0,0,.7); }
+.p-arrow.prev { left: .5rem; }
+.p-arrow.next { right: .5rem; }
+/* placeholder slide */
+.media-ph {
+  display: flex; flex-direction: column;
+  align-items: center; gap: .5rem;
+  color: var(--text-3); text-align: center; padding: 1.5rem;
+  width: 100%; height: 100%; justify-content: center;
+}
+.ph-box {
+  width: 44px; height: 44px;
+  border: 1.5px dashed var(--border);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: .2rem;
+}
+.ph-box svg { opacity: .45; }
+.ph-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.ph-hint { font-size: .7rem; color: var(--text-3); opacity: .55; }
+/* card body */
+.p-info { padding: 1.35rem 1.35rem 1.25rem; }
+.p-meta {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: .65rem;
+}
+.p-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .63rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent);
+}
+.p-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .63rem; color: var(--text-3); letter-spacing: .04em;
+}
+.p-title {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.2rem; letter-spacing: -.01em;
+  color: var(--text); margin-bottom: .55rem; line-height: 1.2;
+}
+.p-desc {
+  font-size: .88rem; color: var(--text-2);
+  line-height: 1.62; margin-bottom: 1.1rem;
+}
+.p-tags { display: flex; gap: .45rem; flex-wrap: wrap; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .62rem; font-weight: 500; letter-spacing: .03em;
+  color: var(--text-2); background: var(--surface);
+  border: 1px solid var(--border);
+  padding: .26rem .58rem; border-radius: 3px;
+}
+.p-links {
+  display: flex; gap: .75rem;
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px solid var(--border-sub);
+}
+.p-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; letter-spacing: .04em;
+  color: var(--text-3);
+  display: flex; align-items: center; gap: .35rem;
+  transition: color .18s;
+}
+.p-link:hover { color: var(--accent); }
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+@media (max-width: 780px) { .skills-grid { grid-template-columns: 1fr; gap: 2.25rem; } }
+.sg-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.sg-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.sk-list { list-style: none; display: flex; flex-direction: column; gap: .58rem; }
+.sk-list li {
+  font-size: .9rem; color: var(--text-2);
+  display: flex; align-items: center; gap: .6rem;
+}
+.sk-list li::before {
+  content: ''; width: 4px; height: 4px;
+  border-radius: 50%; background: var(--accent-2); flex-shrink: 0;
+}
+/* ── ABOUT ── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start;
+}
+@media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+.about-bio { font-size: 1.02rem; color: var(--text-2); line-height: 1.78; }
+.about-bio + .about-bio { margin-top: 1rem; }
+.edu-block {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.35rem; margin-bottom: 1.75rem;
+}
+.edu-school {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1rem; color: var(--text); margin-bottom: .18rem;
+}
+.edu-deg { font-size: .88rem; color: var(--text-2); margin-bottom: .12rem; }
+.edu-yr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; color: var(--text-3); letter-spacing: .04em;
+}
+.certs { margin-top: 2.5rem; }
+.certs-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent-2); margin-bottom: 1rem;
+}
+.cert-row { display: flex; flex-direction: column; gap: .75rem; }
+.cert-item {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 1rem;
+  padding: .9rem 1.1rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.cert-name { font-size: .88rem; font-weight: 600; color: var(--text); }
+.cert-issuer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .65rem; color: var(--text-3); letter-spacing: .04em;
+}
+.cert-yr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem; color: var(--accent); letter-spacing: .06em; flex-shrink: 0;
+}
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border-sub);
+  padding: 2.25rem clamp(2rem, 8vw, 7rem);
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.f-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .68rem; color: var(--text-3); letter-spacing: .04em;
+}
+.f-links { display: flex; gap: 1.5rem; align-items: center; }
+.f-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem; color: var(--text-2); letter-spacing: .04em;
+  display: flex; align-items: center; gap: .4rem;
+  transition: color .18s;
+}
+.f-link:hover { color: var(--accent); }
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+  nav { padding: 0 1.5rem; }
+}
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px; border-radius: 2px;
+}
+</style>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">sofia lobynicheva</span>
+  <ul class="nav-links">
+    <li><a href="#cad">cad</a></li>
+    <li><a href="#hardware">hardware</a></li>
+    <li><a href="#automotive">automotive</a></li>
+    <li><a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">linkedin</a></li>
+    <li><a href="#about">about</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme">
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+<!-- HERO -->
+<section class="hero" aria-label="Introduction">
+  <div class="orb orb-1" aria-hidden="true"></div>
+  <div class="orb orb-2" aria-hidden="true"></div>
+  <p class="hero-eye">Portfolio</p>
+  <h1 class="hero-name">Sofia<br>Lobynicheva</h1>
+  <p class="hero-sub">Engineering Student · Texas A&amp;M '30</p>
+  <p class="hero-bio">General engineering student with roots in robotics, CAD design, and systems programming. I build things that live at the edge of hardware and software.</p>
+  <div class="hero-ctas">
+    <a href="#cad" class="btn-primary">Projects ↓</a>
+    <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span class="scroll-line"></span>
+    scroll
+  </div>
+</section>
+<!-- CAD -->
+<section id="cad">
+  <p class="s-eye">// cad</p>
+  <h2 class="s-title">CAD</h2>
+  <div class="project-grid">
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-c1">
+          <div class="p-slide">
+            <img src="fuel diverter before.jpeg" alt="Fuel diverter before">
+          </div>
+          <div class="p-slide">
+            <img src="fuel diverter1.jpeg" alt="Fuel diverter">
+          </div>
+          <div class="p-slide">
+            <img src="fuel valve diverter CAD.jpg" alt="Fuel diverter CAD">
+          </div>
+        </div>
+        <div class="p-dots" id="dots-c1"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">CAD</span>
+          <span class="p-year">2025</span>
+        </div>
+        <h3 class="p-title">Duramax Fuel Leak Diverter</h3>
+        <p class="p-desc">The 3.0L Duramax diesel has a known fill hose leak that drips fuel directly onto suspension components, accelerating deterioration. GM acknowledged the issue via technical service bulletin but never released a fix. Designed and fabricated a custom diverter that redirects the drip away from suspension components and onto the ground instead.</p>
+        <div class="p-tags">
+          <span class="tag">Fusion 360</span>
+          <span class="tag">3D Print</span>
+          <span class="tag">Automotive</span>
+        </div>
+      </div>
+    </article>
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-c2">
+          <div class="p-slide">
+            <div class="media-ph">
+              <div class="ph-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="m21 15-5-5L5 21"/>
+                </svg>
+              </div>
+              <span class="ph-label">Add media</span>
+              <span class="ph-hint">photo · render · video</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-dots" id="dots-c2"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">CAD</span>
+          <span class="p-year">202X</span>
+        </div>
+        <h3 class="p-title">Project Title</h3>
+        <p class="p-desc">Replace this with your project description.</p>
+        <div class="p-tags">
+          <span class="tag">Fusion 360</span>
+          <span class="tag">3D Print</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- HARDWARE -->
+<section id="hardware">
+  <p class="s-eye">// hardware</p>
+  <h2 class="s-title">Hardware</h2>
+  <div class="project-grid">
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-h1">
+          <div class="p-slide">
+            <img src="sentry1.jpg" alt="Omnidirectional Sensing Module">
+          </div>
+          <div class="p-slide">
+            <video src="sentry.mp4" autoplay muted loop playsinline></video>
+          </div>
+          <div class="p-slide">
+            <img src="sentry2.jpg" alt="Omnidirectional Sensing Module detail">
+          </div>
+        </div>
+        <div class="p-dots" id="dots-h1"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">Hardware · Embedded</span>
+          <span class="p-year">2025</span>
+        </div>
+        <h3 class="p-title">Omnidirectional Sensing Module</h3>
+        <p class="p-desc">Designed a Raspberry Pi-powered device that detects motion outside of my house and automatically rotates to face whoever is standing there, turning on the light in the process. Currently a work in progress, still trying to identify the optimal sensor and power configuration.</p>
+        <div class="p-tags">
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">Embedded Systems</span>
+          <span class="tag">Python</span>
+          <span class="tag">Hardware Design</span>
+          <span class="tag">Work in Progress</span>
+        </div>
+      </div>
+    </article>
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-h2">
+          <div class="p-slide">
+            <div class="media-ph">
+              <div class="ph-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="m21 15-5-5L5 21"/>
+                </svg>
+              </div>
+              <span class="ph-label">Add media</span>
+              <span class="ph-hint">photo · video · docs</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-dots" id="dots-h2"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">Hardware</span>
+          <span class="p-year">202X</span>
+        </div>
+        <h3 class="p-title">Project Title</h3>
+        <p class="p-desc">Replace this with your project description.</p>
+        <div class="p-tags">
+          <span class="tag">Tool</span>
+          <span class="tag">Platform</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- AUTOMOTIVE -->
+<section id="automotive">
+  <p class="s-eye">// automotive</p>
+  <h2 class="s-title">Automotive</h2>
+  <div class="project-grid">
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-a1">
+          <div class="p-slide">
+            <div class="media-ph">
+              <div class="ph-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="m21 15-5-5L5 21"/>
+                </svg>
+              </div>
+              <span class="ph-label">Add media</span>
+              <span class="ph-hint">photo · video · docs</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-dots" id="dots-a1"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">Automotive</span>
+          <span class="p-year">202X</span>
+        </div>
+        <h3 class="p-title">Project Title</h3>
+        <p class="p-desc">Replace this with your project description.</p>
+        <div class="p-tags">
+          <span class="tag">Tool</span>
+          <span class="tag">Platform</span>
+        </div>
+      </div>
+    </article>
+    <article class="project-card">
+      <div class="p-media">
+        <div class="p-slides" id="slides-a2">
+          <div class="p-slide">
+            <div class="media-ph">
+              <div class="ph-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <path d="m21 15-5-5L5 21"/>
+                </svg>
+              </div>
+              <span class="ph-label">Add media</span>
+              <span class="ph-hint">photo · video · docs</span>
+            </div>
+          </div>
+        </div>
+        <div class="p-dots" id="dots-a2"></div>
+      </div>
+      <div class="p-info">
+        <div class="p-meta">
+          <span class="p-cat">Automotive</span>
+          <span class="p-year">202X</span>
+        </div>
+        <h3 class="p-title">Project Title</h3>
+        <p class="p-desc">Replace this with your project description.</p>
+        <div class="p-tags">
+          <span class="tag">Tool</span>
+          <span class="tag">Platform</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+<!-- SKILLS -->
+<section id="skills">
+  <p class="s-eye">// skills</p>
+  <h2 class="s-title">Technical Toolkit</h2>
+  <div class="skills-grid">
+    <div>
+      <p class="sg-title">Programming</p>
+      <ul class="sk-list">
+        <li>Java</li>
+        <li>Python</li>
+        <li>JavaScript</li>
+        <li>C++</li>
+        <li>HTML &amp; CSS</li>
+        <li>Swift &amp; SwiftUI</li>
+      </ul>
+    </div>
+    <div>
+      <p class="sg-title">Engineering &amp; Hardware</p>
+      <ul class="sk-list">
+        <li>CAD Modeling (Fusion 360, OnShape)</li>
+        <li>3D Printing (Bambu Studio)</li>
+        <li>Arduino</li>
+        <li>Robotics</li>
+        <li>Sensors &amp; Actuators</li>
+      </ul>
+    </div>
+    <div>
+      <p class="sg-title">Data &amp; Tools</p>
+      <ul class="sk-list">
+        <li>Excel VBA</li>
+        <li>Automated Reasoning</li>
+        <li>Logic Programming (s(ASP))</li>
+        <li>System Hardening</li>
+        <li>Network Defense</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<!-- ABOUT -->
+<section id="about">
+  <p class="s-eye">// about</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="s-title" style="margin-bottom:1.5rem;">A Bit<br>About Me</h2>
+      <p class="about-bio">I'm a first-year General Engineering student at Texas A&amp;M, with a background that spans competitive robotics (FTC &amp; VEX), cybersecurity, and cross-disciplinary systems work. I love problems that involve mechatronics, automotive engineering, and hardware-software integration.</p>
+      <p class="about-bio">Native speaker of both Russian and English. Always building something.</p>
+    </div>
+    <div>
+      <div class="edu-block">
+        <p class="edu-school">Texas A&amp;M University</p>
+        <p class="edu-deg">General Engineering</p>
+        <p class="edu-yr">Class of 2030 · College Station, TX</p>
+      </div>
+      <div class="certs">
+        <p class="certs-label">Certifications</p>
+        <div class="cert-row">
+          <div class="cert-item">
+            <div>
+              <p class="cert-name">CompTIA Security+ ce</p>
+              <p class="cert-issuer">CompTIA</p>
+            </div>
+            <span class="cert-yr">2026</span>
+          </div>
+          <div class="cert-item">
+            <div>
+              <p class="cert-name">Java IT Specialist</p>
+              <p class="cert-issuer">Certiport</p>
+            </div>
+            <span class="cert-yr">2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer id="contact">
+  <p class="f-copy">© 2026 Sofia Lobynicheva</p>
+  <div class="f-links">
+    <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="f-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+        <rect x="2" y="9" width="4" height="12"/>
+        <circle cx="4" cy="4" r="2"/>
+      </svg>
+      LinkedIn
+    </a>
+    <a href="mailto:sofialobynicheva@gmail.com" class="f-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Email
+    </a>
+  </div>
+</footer>
+<script>
+/* ── THEME ── */
+(function () {
+  var html = document.documentElement;
+  var btn  = document.getElementById('themeBtn');
+  var KEY  = 'sl-theme';
+  function applyTheme(dark) {
+    html.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (dark) html.classList.add('theme-dark');
+    else      html.classList.remove('theme-dark');
+  }
+  var saved;
+  try { saved = localStorage.getItem(KEY); } catch(_) {}
+  var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved !== null ? saved === 'dark' : sysDark);
+  btn.addEventListener('click', function () {
+    var nowDark = html.classList.contains('theme-dark');
+    applyTheme(!nowDark);
+    try { localStorage.setItem(KEY, nowDark ? 'light' : 'dark'); } catch(_) {}
+  });
+})();
+
+/* ── CAROUSEL ── */
+document.querySelectorAll('.p-slides').forEach(function(slider) {
+  var dotsId = slider.id.replace('slides', 'dots');
+  var dotsEl = document.getElementById(dotsId);
+  var slides = slider.querySelectorAll('.p-slide');
+  var media  = slider.parentElement;
+
+  if (slides.length < 2) return;
+
+  /* dots */
+  slides.forEach(function(_, i) {
+    var d = document.createElement('button');
+    d.className = 'p-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.onclick = function() {
+      slider.scrollTo({ left: slider.offsetWidth * i, behavior: 'smooth' });
+    };
+    dotsEl.appendChild(d);
+  });
+
+  /* arrows */
+  var prev = document.createElement('button');
+  prev.className = 'p-arrow prev';
+  prev.setAttribute('aria-label', 'Previous slide');
+  prev.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>';
+  prev.onclick = function() {
+    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
+    slider.scrollTo({ left: slider.offsetWidth * Math.max(0, idx - 1), behavior: 'smooth' });
+  };
+
+  var next = document.createElement('button');
+  next.className = 'p-arrow next';
+  next.setAttribute('aria-label', 'Next slide');
+  next.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>';
+  next.onclick = function() {
+    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
+    slider.scrollTo({ left: slider.offsetWidth * Math.min(slides.length - 1, idx + 1), behavior: 'smooth' });
+  };
+
+  media.appendChild(prev);
+  media.appendChild(next);
+
+  /* sync dots on scroll */
+  slider.addEventListener('scroll', function() {
+    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
+    dotsEl.querySelectorAll('.p-dot').forEach(function(d, i) {
+      d.classList.toggle('active', i === idx);
+    });
+  });
+});
+</script>
+</body>
+</html>
