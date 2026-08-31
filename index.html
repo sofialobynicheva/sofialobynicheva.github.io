@@ -605,7 +605,7 @@ a:focus-visible, button:focus-visible {
         <div class="p-info">
           <div class="p-meta">
             <span class="p-cat">CAD</span>
-            <span class="p-year">2024</span>
+            <span class="p-year">2025</span>
           </div>
           <h3 class="p-title">Solar Sentry Light Project</h3>
           <p class="p-desc">Designed a four-part thermal management system for an off-grid solar enclosure running in direct Texas sun: a dual fan vent housing, 45° vent pipe with ring gaskets, angled fan bracket, and an elevated controller base that creates passive airflow underneath. All modeled in Fusion 360 and 3D printed in PETG for heat resistance. Fans run on a thermal trigger and only spin above 90°F to avoid draining the battery they're cooling.</p>
@@ -666,7 +666,7 @@ a:focus-visible, button:focus-visible {
         <div class="p-info">
           <div class="p-meta">
             <span class="p-cat">CAD</span>
-            <span class="p-year">2025</span>
+            <span class="p-year">2026</span>
           </div>
           <h3 class="p-title">Motion Tracking Spotlight System</h3>
           <p class="p-desc">Built a ceiling-mounted spotlight that detects motion and physically rotates to illuminate whoever triggered it. A ring of PIR sensors provides near-omnidirectional coverage; when any sensor fires, a Raspberry Pi identifies the direction and drives a custom servo gimbal to pan and tilt the spotlight onto the target. The enclosure, sensor mounts, and gimbal brackets are all custom modeled in Fusion 360 and 3D printed. Originally designed to mount on a tree for outdoor perimeter coverage, but ran into real constraints: PIR sensors drift significantly with ambient temperature swings, and finding a power solution that survives outdoor conditions without a wired connection is still an open problem. Currently working through both.</p>
@@ -750,7 +750,7 @@ a:focus-visible, button:focus-visible {
         <div class="p-info">
           <div class="p-meta">
             <span class="p-cat">Hardware</span>
-            <span class="p-year">2025</span>
+            <span class="p-year">2026</span>
           </div>
           <h3 class="p-title">Motion Tracking Spotlight System</h3>
           <p class="p-desc">Brain is a Raspberry Pi Zero 2 WH (quad-core Cortex-A53 at 1.1GHz, 512MB RAM) running the full detection and servo control loop. A ring of HC-SR501 pyroelectric PIR sensors provides near-omnidirectional coverage; when any sensor fires, the Pi identifies the direction and sends I2C commands to a MakerFocus 16-channel PWM driver (12-bit resolution, up to 1526Hz) to position the Yahboom 2-DOF metal servo gimbal. Offloading PWM generation to the dedicated driver keeps the Pi's limited GPIO free and eliminates timing jitter from the OS scheduler. The spotlight switches through an optocoupler-isolated relay (10A rated) to protect the Pi GPIO from inductive kickback on the lamp circuit. Power comes from a 12V supply stepped down to 5V rail via an XL4015 DC-DC buck converter (5A, 75W), powering both the Pi and servo logic. Two open problems: HC-SR501 sensors drift with ambient temperature swings outdoors, producing false triggers; and a weatherproof power solution without a hard-wired connection is still unresolved. Both are actively being worked through.</p>
@@ -794,7 +794,7 @@ a:focus-visible, button:focus-visible {
         <div class="p-info">
           <div class="p-meta">
             <span class="p-cat">Hardware</span>
-            <span class="p-year">2024</span>
+            <span class="p-year">2025</span>
           </div>
           <h3 class="p-title">Solar Sentry Light Project</h3>
           <p class="p-desc">Pure 12V DC, designed to run fully off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a PWM/MPPT controller. Power runs via 10AWG feeder cable from the backyard to minimize voltage drop over the long run, distributing through 14AWG landscape wire and Wago 221 connectors for modular fault isolation. Two operating modes: a continuous 72W base load (two 18W + one 36W LED) running dusk to dawn, and a dormant 36W flood bar that triggers on motion for ~30 seconds. At 3.6A constant draw, the system still hits float voltage (14.5V) by 2PM in Texas sun with 2.5 nights of battery autonomy in overcast conditions. Total build cost: ~$620 versus $2,000+ to trench 120V AC to the street.</p>
