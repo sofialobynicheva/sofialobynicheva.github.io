@@ -46,7 +46,7 @@
   --ok:          #12905b;
   --warn:        #b86e00;
 }
- 
+
 /* ───────── RESET ───────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -65,7 +65,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 section { scroll-margin-top: var(--nav-h); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .wrap { max-width: 1360px; margin: 0 auto; padding: 0 var(--pad); }
- 
+
 /* ───────── NAV ───────── */
 nav {
   position: fixed; top: 0; left: 0; right: 0;
@@ -104,7 +104,7 @@ nav.scrolled {
 .icon-sun { display: none; }
 [data-theme="dark"] .icon-sun { display: block; }
 [data-theme="dark"] .icon-moon { display: none; }
- 
+
 /* ───────── HERO ───────── */
 .hero {
   min-height: 100vh; min-height: 100svh;
@@ -146,7 +146,7 @@ nav.scrolled {
 .btn-solid:hover { background: transparent; color: var(--text); }
 .btn-ghost { background: transparent; color: var(--text); border-color: var(--line-strong); }
 .btn-ghost:hover { border-color: var(--text); }
- 
+
 .hero-foot { position: relative; width: 100%; padding-bottom: 2rem; }
 .hero-meta {
   display: flex; flex-wrap: wrap; gap: .3rem 0;
@@ -155,7 +155,7 @@ nav.scrolled {
   letter-spacing: .1em; text-transform: uppercase; color: var(--text-2);
 }
 .hero-meta span + span::before { content: '/'; margin: 0 .9rem; color: var(--text-3); }
- 
+
 /* ───────── SECTION HEADS ───────── */
 .block { padding: 7rem 0; border-top: 1px solid var(--line); }
 .s-title {
@@ -178,7 +178,7 @@ nav.scrolled {
 }
 .chip:hover { color: var(--text); border-color: var(--text); }
 .chip[aria-pressed="true"] { background: var(--text); border-color: var(--text); color: var(--bg); }
- 
+
 /* ───────── PROJECT GRID ───────── */
 .grid {
   display: grid; gap: 1.25rem;
@@ -248,7 +248,7 @@ nav.scrolled {
   font-family: var(--f-mono); font-size: .68rem;
   letter-spacing: .12em; text-transform: uppercase; color: var(--text-3);
 }
- 
+
 /* ───────── MODAL ───────── */
 dialog {
   margin: auto;
@@ -333,22 +333,7 @@ dialog[open] { animation: pop .22s ease; }
   .m-media { aspect-ratio: 4 / 3; }
   .m-info { overflow: visible; padding: 1.5rem 1.25rem 1.75rem; }
 }
- 
-/* ───────── SKILLS ───────── */
-.skills-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 3rem; margin-top: 3rem;
-}
-@media (max-width: 780px) { .skills-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-.sg-title {
-  font-size: .78rem; font-weight: 600;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: var(--accent); padding-bottom: .85rem;
-  border-bottom: 1px solid var(--line-strong);
-}
-.sk-list { list-style: none; }
-.sk-list li { padding: .7rem 0; border-bottom: 1px solid var(--line); color: var(--text-2); font-size: .98rem; }
- 
+
 /* ───────── ABOUT ───────── */
 .about-grid {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -358,17 +343,23 @@ dialog[open] { animation: pop .22s ease; }
 .about-bio { font-size: 1.1rem; color: var(--text-2); line-height: 1.75; max-width: 34rem; }
 .about-bio + .about-bio { margin-top: 1rem; }
 .about-grid .s-title { margin-bottom: 1.75rem; }
-.edu { border-left: 2px solid var(--accent); padding-left: 1.25rem; margin-bottom: 2.5rem; }
-.edu-school { font-weight: 600; font-size: 1.1rem; letter-spacing: .04em; text-transform: uppercase; }
-.edu-deg { color: var(--text-2); }
-.edu-yr { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .06em; color: var(--text-3); margin-top: .2rem; }
-.certs-label { font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: .85rem; }
-.cert { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .95rem 0; border-top: 1px solid var(--line); }
-.cert:last-child { border-bottom: 1px solid var(--line); }
-.cert-name { font-weight: 600; }
-.cert-issuer { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--text-3); }
-.cert-yr { font-family: var(--f-mono); font-size: .72rem; color: var(--text-2); }
- 
+.facts { border-bottom: 1px solid var(--line); }
+.fact {
+  display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem;
+  padding: 1.4rem 0; border-top: 1px solid var(--line);
+}
+.fact-label {
+  font-size: .8rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text-3); padding-top: .15rem;
+}
+.fact-body p, .fact-row p { font-size: 1rem; font-weight: 500; }
+.fact-body .sub { color: var(--text-2); font-weight: 400; }
+.fact-row { display: flex; justify-content: space-between; gap: 1rem; }
+.fact-row + .fact-row { margin-top: 1rem; }
+.fact-row span { color: var(--text-2); }
+@media (max-width: 480px) { .fact { grid-template-columns: 1fr; gap: .4rem; } }
+
 /* ───────── FOOTER ───────── */
 footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
 .foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
@@ -376,7 +367,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
 .f-links { display: flex; gap: 1.75rem; }
 .f-links a { font-size: .76rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text-2); transition: color .18s; }
 .f-links a:hover { color: var(--text); }
- 
+
 @media (max-width: 640px) {
   .nav-links { display: none; }
   .nav-brand { flex: 1; }
@@ -385,13 +376,12 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
 </style>
 </head>
 <body>
- 
+
 <!-- ───────── NAV ───────── -->
 <nav id="nav">
   <a class="nav-brand" href="#top">Sofia Lobynicheva</a>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">LinkedIn</a></li>
   </ul>
@@ -400,12 +390,12 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
   </button>
 </nav>
- 
+
 <!-- ───────── HERO ───────── -->
 <header class="hero" id="top">
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
- 
+
   <div class="wrap hero-inner">
     <h1 class="hero-name">Sofia<br>Lobynicheva</h1>
     <p class="hero-bio">Robotics, CAD, embedded systems, cars.</p>
@@ -414,12 +404,12 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
       <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
     </div>
   </div>
- 
+
   <div class="wrap hero-foot">
     <p class="hero-meta"><span>Texas A&amp;M</span><span>General Engineering</span><span>Class of 2030</span><span>Building</span></p>
   </div>
 </header>
- 
+
 <!-- ───────── PROJECTS ───────── -->
 <section class="block" id="projects">
   <div class="wrap">
@@ -433,7 +423,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
         <button class="chip" data-filter="progress" aria-pressed="false">In Progress</button>
       </div>
     </div>
- 
+
     <!--
       HOW TO ADD A PROJECT: copy any <article class="card"> below and edit it.
         data-cat     : space-separated list of  hardware | automotive | design
@@ -444,7 +434,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
                        .d-copy for text, .d-tags for tags, .d-links for links
     -->
     <div class="grid" id="grid">
- 
+
       <!-- Motion Tracking Spotlight -->
       <article class="card" data-cat="hardware design" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly" loading="lazy"></div>
@@ -476,7 +466,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"><a href="https://github.com/sofialobynicheva/motion-tracking-sentry" target="_blank" rel="noopener">GitHub repo</a></div>
         </div>
       </article>
- 
+
       <!-- Solar Sentry -->
       <article class="card" data-cat="hardware design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
@@ -511,7 +501,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"><a href="https://docs.google.com/document/d/e/2PACX-1vSfy5GZDMHXy5edRup2MUSpb0m64ijIj2VoTAkH6L70IK3DSi_-fCkKyAo12rXHs16S7A8Qk8e4jiSx/pub" target="_blank" rel="noopener">Bill of materials</a></div>
         </div>
       </article>
- 
+
       <!-- Duramax Fuel Leak Diverter -->
       <article class="card" data-cat="automotive design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
@@ -535,7 +525,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
       <!-- GM Wheel Well Covers -->
       <article class="card" data-cat="automotive design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="IMG_7324.jpg" alt="Wheel well cover installed on vehicle" loading="lazy"></div>
@@ -560,7 +550,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
       <!-- Performance Bubble Wands -->
       <article class="card" data-cat="design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="xlwand.png" alt="Bubble wand CAD" loading="lazy"></div>
@@ -586,7 +576,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
       <!-- S650 Front End Repair -->
       <article class="card" data-cat="automotive" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="puttingontire.jpg" alt="Reinstalling wheel" loading="lazy"></div>
@@ -611,7 +601,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
       <!-- MBRP Catback Exhaust -->
       <article class="card" data-cat="automotive" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="exhaustedge.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
@@ -635,7 +625,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
       <!-- TVC Rocket (placeholder: swap the .ph div for an <img> and add .slide entries when you have photos) -->
       <article class="card" data-cat="hardware" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><div class="ph">No photos yet</div></div>
@@ -656,7 +646,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
       <!-- Hexapod (placeholder) -->
       <article class="card" data-cat="hardware" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><div class="ph">No photos yet</div></div>
@@ -677,46 +667,11 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="d-links"></div>
         </div>
       </article>
- 
+
     </div>
   </div>
 </section>
- 
-<!-- ───────── SKILLS ───────── -->
-<section class="block" id="skills">
-  <div class="wrap">
-    <h2 class="s-title">Skills</h2>
-    <div class="skills-grid">
-      <div>
-        <p class="sg-title">Programming</p>
-        <ul class="sk-list">
-          <li>Python</li>
-          <li>Java</li>
-          <li>HTML &amp; CSS</li>
-          <li>Logic Programming (s(ASP))</li>
-        </ul>
-      </div>
-      <div>
-        <p class="sg-title">Engineering &amp; Hardware</p>
-        <ul class="sk-list">
-          <li>CAD Modeling (Fusion 360, OnShape)</li>
-          <li>FDM 3D Printing (Bambu Studio)</li>
-          <li>Embedded Systems (Raspberry Pi, Arduino)</li>
-          <li>DC Power &amp; Solar System Design</li>
-          <li>Thermal &amp; Enclosure Design</li>
-          <li>Sensors, Servos &amp; Actuators</li>
-        </ul>
-      </div>
-      <div>
-        <p class="sg-title">Other</p>
-        <ul class="sk-list">
-          <li>System Hardening &amp; Network Defense</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
- 
+
 <!-- ───────── ABOUT ───────── -->
 <section class="block" id="about">
   <div class="wrap">
@@ -726,34 +681,27 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
         <p class="about-bio">First-year General Engineering student at Texas A&amp;M. Background in competitive robotics (FTC and VEX) and hands-on mechanical and electrical builds.</p>
         <p class="about-bio">Interested in mechatronics, automotive engineering, and hardware-software integration. Native speaker of Russian and English.</p>
       </div>
-      <div>
-        <div class="edu">
-          <p class="edu-school">Texas A&amp;M University</p>
-          <p class="edu-deg">General Engineering</p>
-          <p class="edu-yr">Class of 2030 &nbsp;/&nbsp; College Station, TX</p>
-        </div>
-        <p class="certs-label">Certifications</p>
-        <div>
-          <div class="cert">
-            <div>
-              <p class="cert-name">CompTIA Security+ ce</p>
-              <p class="cert-issuer">CompTIA</p>
-            </div>
-            <span class="cert-yr">2026</span>
+      <div class="facts">
+        <div class="fact">
+          <p class="fact-label">Education</p>
+          <div class="fact-body">
+            <p>Texas A&amp;M University</p>
+            <p class="sub">General Engineering, Class of 2030</p>
+            <p class="sub">College Station, TX</p>
           </div>
-          <div class="cert">
-            <div>
-              <p class="cert-name">Java IT Specialist</p>
-              <p class="cert-issuer">Certiport</p>
-            </div>
-            <span class="cert-yr">2025</span>
+        </div>
+        <div class="fact">
+          <p class="fact-label">Certifications</p>
+          <div class="fact-body">
+            <div class="fact-row"><div><p>CompTIA Security+ ce</p><p class="sub">CompTIA</p></div><span>2026</span></div>
+            <div class="fact-row"><div><p>Java IT Specialist</p><p class="sub">Certiport</p></div><span>2025</span></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- ───────── FOOTER ───────── -->
 <footer id="contact">
   <div class="wrap foot-inner">
@@ -764,7 +712,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     </div>
   </div>
 </footer>
- 
+
 <!-- ───────── PROJECT POPUP ───────── -->
 <dialog id="modal" aria-labelledby="mTitle">
   <button class="m-close" id="mClose" aria-label="Close">
@@ -790,7 +738,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     </div>
   </div>
 </dialog>
- 
+
 <script>
 (function () {
   /* ── THEME ── */
@@ -800,7 +748,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     html.setAttribute('data-theme', next);
     try { localStorage.setItem('sl-theme', next); } catch (_) {}
   });
- 
+
   /* ── HERO SPOTLIGHT (follows the cursor on desktop) ── */
   (function () {
     var hero = document.getElementById('top');
@@ -823,21 +771,20 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
       if (!raf) raf = requestAnimationFrame(step);
     });
   })();
- 
+
   /* ── NAV BACKGROUND ON SCROLL ── */
   var nav = document.getElementById('nav');
   function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 24); }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
- 
+
   /* ── CARD NUMBERING ── */
   var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
-  function pad(n) { return (n < 10 ? '0' : '') + n; }
   cards.forEach(function (c, i) {
-    c.querySelector('.card-num').textContent = 'Project ' + pad(i + 1) + ' / ' + pad(cards.length);
+    c.querySelector('.card-num').textContent = 'Project ' + (i + 1);
     c.setAttribute('aria-label', c.querySelector('.card-title').textContent + ' — open details');
   });
- 
+
   /* ── FILTERS ── */
   var chips = document.querySelectorAll('.chip');
   chips.forEach(function (chip) {
@@ -853,13 +800,13 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
       });
     });
   });
- 
+
   /* ── POPUP ── */
   var modal  = document.getElementById('modal');
   var media  = document.getElementById('mMedia');
   var slides = document.getElementById('mSlides');
   var count  = document.getElementById('mCount');
- 
+
   function slideIndex() { return Math.round(slides.scrollLeft / (slides.clientWidth || 1)); }
   function updateCount() {
     var n = slides.children.length;
@@ -883,12 +830,12 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     html.classList.remove('modal-open');
     slides.innerHTML = '';
   });
- 
+
   function fill(id, source) {
     var el = document.getElementById(id);
     el.innerHTML = source ? source.innerHTML : '';
   }
- 
+
   function openCard(card) {
     var d = card.querySelector('.detail');
     slides.innerHTML = '';
@@ -905,7 +852,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     media.classList.toggle('single', slides.children.length < 2);
     slides.scrollLeft = 0;
     updateCount();
- 
+
     var meta = document.getElementById('mMeta');
     meta.innerHTML = '';
     meta.appendChild(card.querySelector('.card-top').cloneNode(true));
@@ -913,22 +860,22 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     yr.className = 'm-year';
     yr.textContent = card.querySelector('.card-year').textContent;
     meta.appendChild(yr);
- 
+
     document.getElementById('mTitle').textContent = card.querySelector('.card-title').textContent;
     fill('mCopy',  d && d.querySelector('.d-copy'));
     fill('mTags',  d && d.querySelector('.d-tags'));
     fill('mLinks', d && d.querySelector('.d-links'));
- 
+
     html.classList.add('modal-open');
     modal.showModal();
- 
+
     Array.prototype.forEach.call(slides.querySelectorAll('video'), function (v) {
       v.muted = true;
       var p = v.play();
       if (p && p.catch) p.catch(function () {});
     });
   }
- 
+
   cards.forEach(function (card) {
     card.addEventListener('click', function () { openCard(card); });
     card.addEventListener('keydown', function (e) {
@@ -939,4 +886,3 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
 </script>
 </body>
 </html>
- 
