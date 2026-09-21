@@ -419,14 +419,13 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
         <button class="chip" data-filter="all" aria-pressed="true">All</button>
         <button class="chip" data-filter="hardware" aria-pressed="false">Hardware</button>
         <button class="chip" data-filter="automotive" aria-pressed="false">Automotive</button>
-        <button class="chip" data-filter="design" aria-pressed="false">Design &amp; Print</button>
         <button class="chip" data-filter="progress" aria-pressed="false">In Progress</button>
       </div>
     </div>
 
     <!--
       HOW TO ADD A PROJECT: copy any <article class="card"> below and edit it.
-        data-cat     : space-separated list of  hardware | automotive | design
+        data-cat     : space-separated list of  hardware | automotive
         data-status  : "done" or "progress"  ("progress" also shows under the In Progress filter)
         status badge : class is-done (green), is-progress (amber), is-dev (amber, blinking)
         card photo   : the <img> inside .card-media  (for no photo, use <div class="ph">No photos yet</div>)
@@ -436,11 +435,11 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     <div class="grid" id="grid">
 
       <!-- Motion Tracking Spotlight -->
-      <article class="card" data-cat="hardware design" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
+      <article class="card" data-cat="hardware" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top">
-            <span class="cats"><span>Hardware</span><span>Design</span></span>
+            <span class="cats"><span>Hardware</span></span>
             <span class="status is-progress">Iterating</span>
           </div>
           <h3 class="card-title">Motion Tracking Spotlight</h3>
@@ -468,11 +467,11 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
       </article>
 
       <!-- Solar Sentry -->
-      <article class="card" data-cat="hardware design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+      <article class="card" data-cat="hardware" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top">
-            <span class="cats"><span>Hardware</span><span>Design</span></span>
+            <span class="cats"><span>Hardware</span></span>
             <span class="status is-done">Complete</span>
           </div>
           <h3 class="card-title">Solar Sentry Light</h3>
@@ -503,11 +502,11 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
       </article>
 
       <!-- Duramax Fuel Leak Diverter -->
-      <article class="card" data-cat="automotive design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+      <article class="card" data-cat="automotive" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
         <div class="card-media"><img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top">
-            <span class="cats"><span>Automotive</span><span>Design</span></span>
+            <span class="cats"><span>Automotive</span></span>
             <span class="status is-done">Complete</span>
           </div>
           <h3 class="card-title">Duramax Fuel Leak Diverter</h3>
@@ -522,57 +521,6 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
             <p>The 3.0L Duramax diesel has a known fill hose leak that drips fuel directly onto suspension components, accelerating deterioration. GM acknowledged the issue via technical service bulletin but never released a fix. Designed and fabricated a custom diverter that redirects the drip away from suspension components and onto the ground instead.</p>
           </div>
           <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Parametric Modeling</span><span class="tag">Reverse Engineering</span></div>
-          <div class="d-links"></div>
-        </div>
-      </article>
-
-      <!-- GM Wheel Well Covers -->
-      <article class="card" data-cat="automotive design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="card-media"><img src="IMG_7324.jpg" alt="Wheel well cover installed on vehicle" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <span class="cats"><span>Automotive</span><span>Design</span></span>
-            <span class="status is-done">Complete</span>
-          </div>
-          <h3 class="card-title">GM Wheel Well Covers</h3>
-          <p class="card-sum">GM leaves the wheel wells on some trucks unlined. Modeled snap-fit covers measured off the vehicle, no drilling.</p>
-          <div class="card-foot"><span class="card-num"></span><span class="card-year">2025</span></div>
-        </div>
-        <div class="detail" hidden>
-          <div class="slide"><img src="IMG_7324.jpg" alt="Wheel well cover installed on vehicle" loading="lazy"></div>
-          <div class="slide"><img src="wheelwell.jpg" alt="Bare wheel well before cover installation" loading="lazy"></div>
-          <div class="slide"><img src="gmcwheelwellcad.png" alt="Wheel well cover Fusion 360 model" loading="lazy"></div>
-          <div class="slide"><img src="gmswheelwellclip.png" alt="Snap-fit mounting clip CAD detail" loading="lazy"></div>
-          <div class="d-copy">
-            <p>GM leaves the wheel wells on certain trucks without rubber lining, exposing the inner body to road debris and moisture. Modeled custom covers in Fusion 360 to fill the gap, measured directly off the vehicle and designed for a snap-fit install without drilling.</p>
-          </div>
-          <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Snap-Fit Design</span></div>
-          <div class="d-links"></div>
-        </div>
-      </article>
-
-      <!-- Performance Bubble Wands -->
-      <article class="card" data-cat="design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="card-media"><img src="xlwand.png" alt="Bubble wand CAD" loading="lazy"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <span class="cats"><span>Design</span></span>
-            <span class="status is-done">Complete</span>
-          </div>
-          <h3 class="card-title">Performance Bubble Wands</h3>
-          <p class="card-sum">Custom bubble wands for live shows, from a single ring to a 9-ring grid. 12+ iterations to get the prints reliable.</p>
-          <div class="card-foot"><span class="card-num"></span><span class="card-year">2024 – present</span></div>
-        </div>
-        <div class="detail" hidden>
-          <div class="slide"><img src="xlwand.png" alt="Bubble wand CAD" loading="lazy"></div>
-          <div class="slide"><img src="bubblewandcad.jpg" alt="Bubble wand CAD" loading="lazy"></div>
-          <div class="slide"><img src="wand.png" alt="Bubble wand CAD" loading="lazy"></div>
-          <div class="slide"><img src="wandprototype.png" alt="Bubble wand prototype" loading="lazy"></div>
-          <div class="slide"><img src="largewand.png" alt="Large bubble wand" loading="lazy"></div>
-          <div class="d-copy">
-            <p>Designed a set of custom bubble wands for use in live shows, including a single large ring, a 3-ring cluster, and a 9-ring grid for high-volume output. The rings use a toothed outer profile to grip the string and hold bubble solution more effectively. Went through 12+ iterations mainly to solve print failures, adding internal supports until the geometry printed reliably. Several versions were printed and used in actual performances.</p>
-          </div>
-          <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">3D Printing</span></div>
           <div class="d-links"></div>
         </div>
       </article>
@@ -647,9 +595,9 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
         </div>
       </article>
 
-      <!-- Hexapod (placeholder) -->
+      <!-- Hexapod -->
       <article class="card" data-cat="hardware" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="card-media"><div class="ph">No photos yet</div></div>
+        <div class="card-media"><img src="hex1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top">
             <span class="cats"><span>Hardware</span></span>
@@ -660,6 +608,10 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="card-foot"><span class="card-num"></span><span class="card-year">2026</span></div>
         </div>
         <div class="detail" hidden>
+          <div class="slide"><img src="hex1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
+          <div class="slide"><img src="hex2.jpeg" alt="Hexapod build photo 2" loading="lazy"></div>
+          <div class="slide"><img src="hex3.jpeg" alt="Hexapod build photo 3" loading="lazy"></div>
+          <div class="slide"><img src="hex4.jpeg" alt="Hexapod build photo 4" loading="lazy"></div>
           <div class="d-copy">
             <p>Six-legged walking robot. Write-up coming as the build progresses.</p>
           </div>
@@ -883,6 +835,9 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     });
   });
 })();
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
