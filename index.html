@@ -373,6 +373,12 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
   .nav-brand { flex: 1; }
   .block { padding: 5rem 0; }
 }
+/* no text/image selection highlight while clicking through cards and photos */
+.card, .m-media, .chip, .m-arrow {
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.card-media img, .m-slides img, .m-slides video { -webkit-user-drag: none; }
 </style>
 </head>
 <body>
@@ -468,7 +474,7 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
 
       <!-- Solar Sentry -->
       <article class="card" data-cat="hardware" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
-        <div class="card-media"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
+        <div class="card-media"><img src="battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" style="object-position: center 70%;" loading="lazy"></div>
         <div class="card-body">
           <div class="card-top">
             <span class="cats"><span>Hardware</span></span>
@@ -479,18 +485,18 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
           <div class="card-foot"><span class="card-num"></span><span class="card-year">2025</span></div>
         </div>
         <div class="detail" hidden>
-          <div class="slide"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
-          <div class="slide"><img src="solarsentrybefore.jpg" alt="Street before lighting installation" loading="lazy"></div>
           <div class="slide"><img src="battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" loading="lazy"></div>
           <div class="slide"><img src="box.jpg" alt="Weatherproof solar enclosure" loading="lazy"></div>
           <div class="slide"><img src="solar controlelr.jpg" alt="PWM/MPPT solar charge controller" loading="lazy"></div>
           <div class="slide"><img src="panels.jpg" alt="Three 100W solar panels mounted" loading="lazy"></div>
-          <div class="slide"><img src="light.jpg" alt="LED security lights installed" loading="lazy"></div>
           <div class="slide"><img src="solar-controller-base.jpg.png" alt="Elevated controller base CAD model" loading="lazy"></div>
           <div class="slide"><img src="solar-fan-stand.jpg.png" alt="Angled fan bracket CAD model" loading="lazy"></div>
           <div class="slide"><img src="solar-vent-housing.jpg.png" alt="Dual fan vent housing CAD model" loading="lazy"></div>
           <div class="slide"><img src="solar-vent-pipe.jpg.png" alt="45-degree vent pipe CAD model" loading="lazy"></div>
           <div class="slide"><img src="last thing fdor solar sentry.png" alt="Solar enclosure full assembly CAD" loading="lazy"></div>
+          <div class="slide"><img src="light.jpg" alt="LED security lights installed" loading="lazy"></div>
+          <div class="slide"><img src="solarsentrybefore.jpg" alt="Street before lighting installation" loading="lazy"></div>
+          <div class="slide"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
           <div class="d-copy">
             <p>Pure 12V DC, designed to run fully off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a PWM/MPPT controller. Power runs via 10AWG feeder cable from the backyard to minimize voltage drop over the long run, distributing through 14AWG landscape wire and Wago 221 connectors for modular fault isolation.</p>
             <p>Two operating modes: a continuous 72W base load (two 18W + one 36W LED) running dusk to dawn, and a dormant 36W flood bar that triggers on motion for ~30 seconds. At 3.6A constant draw, the system still hits float voltage (14.5V) by 2PM in Texas sun with 2.5 nights of battery autonomy in overcast conditions. Total build cost: ~$620 versus $2,000+ to trench 120V AC to the street.</p>
@@ -835,9 +841,6 @@ footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
     });
   });
 })();
-</script>
-</body>
-</html>
 </script>
 </body>
 </html>
