@@ -1,962 +1,747 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sofia Lobynicheva</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Michroma&display=swap">
+<script>
+/* set theme before first paint (dark by default) */
+(function () {
+  var t = 'dark';
+  try { t = localStorage.getItem('sl-theme') || 'dark'; } catch (_) {}
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
 <style>
-/* ── TOKENS ── */
+/* ───────── TOKENS ───────── */
 :root {
-  --bg:          #f1eeff;
-  --surface:     #ffffff;
-  --card:        #f9f7ff;
-  --border:      #cec8f0;
-  --border-sub:  #e6e1f8;
-  --text:        #0e0a2c;
-  --text-2:      #524a8c;
-  --text-3:      #a89ec8;
-  --accent:      #6638c8;
-  --accent-2:    #2c60d4;
-  --ar:          104,56,200;
-  --orb-a:       rgba(102,56,200,.13);
-  --orb-b:       rgba(44,96,212,.10);
-  --nav-h:       62px;
-  --section-px:  clamp(2rem, 8vw, 7rem);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:         #06061a;
-    --surface:    #0e0d28;
-    --card:       #121130;
-    --border:     #201d4e;
-    --border-sub: #17163c;
-    --text:       #dcd7f8;
-    --text-2:     #8880b8;
-    --text-3:     #3c3a68;
-    --accent:     #9a78e8;
-    --accent-2:   #5888f5;
-    --ar:         154,120,232;
-    --orb-a:      rgba(154,120,232,.16);
-    --orb-b:      rgba(88,136,245,.12);
-  }
-}
-:root[data-theme="dark"] {
-  --bg:         #06061a;
-  --surface:    #0e0d28;
-  --card:       #121130;
-  --border:     #201d4e;
-  --border-sub: #17163c;
-  --text:       #dcd7f8;
-  --text-2:     #8880b8;
-  --text-3:     #3c3a68;
-  --accent:     #9a78e8;
-  --accent-2:   #5888f5;
-  --ar:         154,120,232;
-  --orb-a:      rgba(154,120,232,.16);
-  --orb-b:      rgba(88,136,245,.12);
+  --bg:          #000000;
+  --surface:     #0b0c0e;
+  --line:        #23262b;
+  --line-strong: #3a3f46;
+  --text:        #f2f4f7;
+  --text-2:      #9ca3ad;
+  --text-3:      #626a75;
+  --accent:      #8ab4ff;
+  --ok:          #3ddc97;
+  --warn:        #ffb454;
+  --nav-h:       64px;
+  --pad:         clamp(1.25rem, 5vw, 5rem);
+  --f-display:   'Michroma', 'Barlow', sans-serif;
+  --f-body:      'Barlow', system-ui, sans-serif;
+  --f-mono:      'JetBrains Mono', ui-monospace, monospace;
 }
 :root[data-theme="light"] {
-  --bg:          #f1eeff;
+  --bg:          #f5f6f8;
   --surface:     #ffffff;
-  --card:        #f9f7ff;
-  --border:      #cec8f0;
-  --border-sub:  #e6e1f8;
-  --text:        #0e0a2c;
-  --text-2:      #524a8c;
-  --text-3:      #a89ec8;
-  --accent:      #6638c8;
-  --accent-2:    #2c60d4;
-  --ar:          104,56,200;
-  --orb-a:       rgba(102,56,200,.13);
-  --orb-b:       rgba(44,96,212,.10);
+  --line:        #d9dce1;
+  --line-strong: #b9bec6;
+  --text:        #0a0b0d;
+  --text-2:      #4a515b;
+  --text-3:      #7b828c;
+  --accent:      #1f5fd6;
+  --ok:          #12905b;
+  --warn:        #b86e00;
 }
-/* ── RESET ── */
+ 
+/* ───────── RESET ───────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--f-body);
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+html.modal-open { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
 img, video { max-width: 100%; display: block; }
-/* ── NAV ── */
+button { font: inherit; color: inherit; cursor: pointer; }
+section { scroll-margin-top: var(--nav-h); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.wrap { max-width: 1360px; margin: 0 auto; padding: 0 var(--pad); }
+ 
+/* ───────── NAV ───────── */
 nav {
   position: fixed; top: 0; left: 0; right: 0;
   height: var(--nav-h);
+  display: flex; align-items: center; gap: 2rem;
+  padding: 0 var(--pad);
+  z-index: 100;
+  border-bottom: 1px solid transparent;
+  transition: background .25s, border-color .25s;
+}
+nav.scrolled {
   background: var(--bg);
-  border-bottom: 1px solid var(--border-sub);
-  display: flex; align-items: center;
-  padding: 0 clamp(1.5rem, 6vw, 5rem);
-  z-index: 200; gap: 1.5rem;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom-color: var(--line);
 }
 .nav-brand {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem; font-weight: 500;
-  color: var(--text-2); letter-spacing: .04em;
+  font-weight: 600; font-size: .8rem;
+  letter-spacing: .2em; text-transform: uppercase;
   white-space: nowrap;
 }
-.nav-links { display: flex; gap: 1.75rem; list-style: none; margin-left: auto; }
+.nav-links { display: flex; gap: 2rem; list-style: none; margin-left: auto; }
 .nav-links a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .72rem; color: var(--text-2);
-  letter-spacing: .05em; transition: color .18s;
+  font-size: .78rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-2); transition: color .18s;
 }
-.nav-links a:hover { color: var(--accent); }
-.nav-right { display: flex; gap: .65rem; align-items: center; margin-left: 1.75rem; }
+.nav-links a:hover { color: var(--text); }
 .theme-btn {
-  background: none; border: none; cursor: pointer;
-  color: var(--text-3); font-size: 1rem;
-  padding: .3rem; line-height: 1;
-  transition: color .18s; display: flex; align-items: center;
+  background: none; border: 1px solid var(--line);
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  color: var(--text-2); transition: color .18s, border-color .18s;
 }
-.theme-btn:hover { color: var(--accent); }
+.theme-btn:hover { color: var(--text); border-color: var(--line-strong); }
 .icon-sun { display: none; }
-.icon-moon { display: inline; }
-html.theme-dark .icon-sun  { display: inline; }
-html.theme-dark .icon-moon { display: none; }
-/* ── HERO ── */
+[data-theme="dark"] .icon-sun { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
+ 
+/* ───────── HERO ───────── */
 .hero {
-  min-height: 100vh;
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; overflow: hidden;
   padding-top: var(--nav-h);
-  display: flex; flex-direction: column; justify-content: center;
-  position: relative; overflow: hidden;
-  padding-left:  var(--section-px);
-  padding-right: var(--section-px);
-  padding-bottom: 4rem;
 }
-.orb {
-  position: absolute; border-radius: 50%;
-  pointer-events: none; filter: blur(100px);
-  will-change: transform; transform: translateZ(0);
+.hero { --mx: 72%; --my: 32%; }
+.hero-grid, .hero-glow { position: absolute; inset: 0; pointer-events: none; }
+.hero-grid {
+  background-image:
+    linear-gradient(var(--line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-strong) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(circle 280px at var(--mx) var(--my), #000 0%, transparent 100%);
+  mask-image: radial-gradient(circle 280px at var(--mx) var(--my), #000 0%, transparent 100%);
 }
-.orb-1 {
-  width: 680px; height: 680px;
-  background: radial-gradient(circle, var(--orb-a) 0%, transparent 70%);
-  top: -160px; right: -80px;
+.hero-glow {
+  background: radial-gradient(circle 340px at var(--mx) var(--my),
+    color-mix(in srgb, var(--accent) 11%, transparent), transparent 100%);
 }
-.orb-2 {
-  width: 520px; height: 520px;
-  background: radial-gradient(circle, var(--orb-b) 0%, transparent 70%);
-  bottom: 20px; left: -90px;
-}
-.hero-eye {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .75rem; font-weight: 500;
-  color: var(--accent); letter-spacing: .12em;
-  text-transform: uppercase; margin-bottom: 1.25rem;
-}
+.hero-inner { position: relative; width: 100%; padding-bottom: 3.5rem; }
 .hero-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(3.4rem, 9vw, 7.5rem);
-  line-height: .96; letter-spacing: -.025em;
-  text-wrap: balance;
-  color: var(--text); margin-bottom: 1.5rem;
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(1.9rem, 8.2vw, 6.75rem);
+  line-height: 1.04; letter-spacing: -.01em;
+  text-transform: uppercase; overflow-wrap: anywhere;
+  margin-bottom: 1.75rem;
 }
-.hero-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .85rem; color: var(--text-2);
-  letter-spacing: .04em; margin-bottom: 1.75rem;
-  display: flex; align-items: center; gap: .75rem;
+.hero-bio { font-size: 1.15rem; color: var(--text-2); margin-bottom: 2rem; }
+.hero-ctas { display: flex; gap: .85rem; flex-wrap: wrap; }
+.btn {
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  padding: .9rem 1.6rem; border: 1px solid var(--text);
+  display: inline-block; transition: background .18s, color .18s, border-color .18s;
 }
-.hero-sub::before {
-  content: ''; display: inline-block;
-  width: 28px; height: 1px; background: var(--accent-2);
+.btn-solid { background: var(--text); color: var(--bg); }
+.btn-solid:hover { background: transparent; color: var(--text); }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.btn-ghost:hover { border-color: var(--text); }
+ 
+.hero-foot { position: relative; width: 100%; padding-bottom: 2rem; }
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: .3rem 0;
+  border-top: 1px solid var(--line-strong); padding-top: .9rem;
+  font-family: var(--f-mono); font-size: .72rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-2);
 }
-.hero-bio {
-  font-size: 1.05rem; color: var(--text-2);
-  max-width: 500px; line-height: 1.75; margin-bottom: 2.5rem;
-}
-.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-primary {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .78rem; letter-spacing: .07em; text-transform: uppercase;
-  color: #fff; background: var(--accent); border: none;
-  padding: .72rem 1.65rem; border-radius: 4px;
-  cursor: pointer; text-decoration: none;
-  transition: opacity .18s; display: inline-flex; align-items: center; gap: .45rem;
-}
-.btn-primary:hover { opacity: .82; }
-.btn-outline {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .78rem; letter-spacing: .07em; text-transform: uppercase;
-  color: var(--text-2); background: none;
-  border: 1px solid var(--border);
-  padding: .72rem 1.65rem; border-radius: 4px;
-  cursor: pointer; text-decoration: none;
-  transition: color .18s, border-color .18s;
-  display: inline-flex; align-items: center; gap: .45rem;
-}
-.btn-outline:hover { color: var(--accent); border-color: var(--accent); }
-.hero-scroll {
-  position: absolute; bottom: 2.25rem;
-  left: var(--section-px);
-  display: flex; align-items: center; gap: .6rem;
-  color: var(--text-3);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .68rem; letter-spacing: .09em; text-transform: uppercase;
-}
-.scroll-line {
-  width: 40px; height: 1px; background: var(--text-3);
-  animation: pulse 2.2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity: .35; width: 40px; }
-  50%      { opacity: 1;   width: 58px; }
-}
-@media (prefers-reduced-motion: reduce) { .scroll-line { animation: none; } }
-/* ── SECTIONS ── */
-section {
-  padding: 6rem var(--section-px);
-  border-top: 1px solid var(--border-sub);
-}
-.s-eye {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .72rem; font-weight: 500;
-  color: var(--accent-2); letter-spacing: .12em;
-  text-transform: uppercase; margin-bottom: 1rem;
-}
+.hero-meta span + span::before { content: '/'; margin: 0 .9rem; color: var(--text-3); }
+ 
+/* ───────── SECTION HEADS ───────── */
+.block { padding: 7rem 0; border-top: 1px solid var(--line); }
 .s-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 2.9rem);
-  line-height: 1.1; letter-spacing: -.02em;
-  color: var(--text); margin-bottom: 2.5rem;
-  text-wrap: balance;
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+  letter-spacing: -.005em; text-transform: uppercase;
+  line-height: 1.1;
 }
-/* ── PROJECT ROW (horizontal scroll) ── */
-.project-row-wrap {
-  margin-left:  calc(-1 * var(--section-px));
-  margin-right: calc(-1 * var(--section-px));
-  position: relative;
+.projects-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem 2rem; flex-wrap: wrap; margin-bottom: 2.5rem;
 }
-.project-row-wrap::after {
-  content: '';
-  position: absolute; top: 0; right: 0; bottom: 0;
-  width: 5rem;
-  background: linear-gradient(to right, transparent, var(--bg));
-  pointer-events: none; z-index: 1;
+.filters { display: flex; gap: .5rem; flex-wrap: wrap; }
+.chip {
+  background: none; border: 1px solid var(--line-strong);
+  font-size: .74rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  padding: .55rem 1rem; color: var(--text-2);
+  transition: color .18s, border-color .18s, background .18s;
 }
-.project-row {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--section-px);
-  gap: 1.25rem;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding-left:  var(--section-px);
-  padding-right: calc(var(--section-px) + 3rem);
-  padding-bottom: 1rem;
+.chip:hover { color: var(--text); border-color: var(--text); }
+.chip[aria-pressed="true"] { background: var(--text); border-color: var(--text); color: var(--bg); }
+ 
+/* ───────── PROJECT GRID ───────── */
+.grid {
+  display: grid; gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
 }
-.project-row::-webkit-scrollbar { display: none; }
-/* ── PROJECT CARD ── */
-.project-card {
-  flex: 0 0 360px;
-  scroll-snap-align: start;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px; overflow: hidden;
-  transition: border-color .22s, box-shadow .22s;
-}
-.project-card:hover {
-  border-color: rgba(var(--ar), .42);
-  box-shadow: 0 0 0 1px rgba(var(--ar),.10),
-              0 8px 36px rgba(var(--ar),.07);
-}
-/* ── CAROUSEL ── */
-.p-media {
-  width: 100%; aspect-ratio: 4/3;
+.card {
+  display: flex; flex-direction: column;
   background: var(--surface);
-  border-bottom: 1px solid var(--border-sub);
-  position: relative; overflow: hidden;
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: border-color .2s;
 }
-.p-slides {
-  display: flex;
+.card[hidden] { display: none; }
+.card:hover { border-color: var(--text-3); }
+.card-media {
+  aspect-ratio: 16 / 10; overflow: hidden;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.card:hover .card-media img { transform: scale(1.035); }
+@media (prefers-reduced-motion: reduce) { .card:hover .card-media img { transform: none; } }
+.card-body { padding: 1.25rem 1.35rem 1.15rem; display: flex; flex-direction: column; flex: 1; }
+.card-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: .9rem;
+}
+.cats {
+  display: flex; flex-wrap: wrap; gap: 0 .5rem;
+  font-family: var(--f-mono); font-size: .66rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--text-2);
+}
+.cats span + span::before { content: '/'; margin-right: .5rem; color: var(--text-3); }
+.status {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--f-mono); font-size: .66rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-2); white-space: nowrap;
+}
+.status::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ok);
+}
+.status.is-progress::before { background: var(--warn); }
+.status.is-dev::before { background: var(--warn); animation: blink 1.8s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .status.is-dev::before { animation: none; } }
+.card-title {
+  font-weight: 600; font-size: 1.15rem;
+  letter-spacing: .05em; text-transform: uppercase;
+  line-height: 1.25; margin-bottom: .6rem;
+}
+.card-sum { font-size: .95rem; color: var(--text-2); line-height: 1.6; margin-bottom: 1.25rem; }
+.card-foot {
+  margin-top: auto; padding-top: .9rem; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; gap: 1rem;
+  font-family: var(--f-mono); font-size: .66rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--text-3);
+}
+.ph {
   width: 100%; height: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  display: grid; place-items: center;
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  font-family: var(--f-mono); font-size: .68rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--text-3);
 }
-.p-slides::-webkit-scrollbar { display: none; }
-.p-slide {
+ 
+/* ───────── MODAL ───────── */
+dialog {
+  margin: auto;
+  width: min(1120px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem); max-height: calc(100dvh - 2rem);
+  padding: 0; overflow: hidden;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--line-strong);
+}
+dialog::backdrop { background: rgba(0, 0, 0, .74); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+dialog[open] { animation: pop .22s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(14px); } }
+@media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
+.m-close {
+  position: absolute; top: .75rem; right: .75rem; z-index: 6;
+  width: 36px; height: 36px; display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--line-strong);
+  transition: border-color .18s;
+}
+.m-close:hover { border-color: var(--text); }
+.m-grid {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  height: min(720px, calc(100vh - 2rem)); height: min(720px, calc(100dvh - 2rem));
+}
+.m-media { position: relative; background: #000; min-height: 0; }
+.m-slides {
+  position: absolute; inset: 0;
+  display: flex; overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.m-slides::-webkit-scrollbar { display: none; }
+.m-slides .slide {
   flex: 0 0 100%; height: 100%;
   scroll-snap-align: start;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
+  display: grid; place-items: center;
 }
-.p-slide img,
-.p-slide video {
-  width: 100%; height: 100%; object-fit: cover;
-  position: absolute; inset: 0;
+.m-slides img, .m-slides video { width: 100%; height: 100%; object-fit: contain; }
+.m-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: rgba(0, 0, 0, .55); border: 1px solid rgba(255, 255, 255, .25);
+  color: #fff; transition: background .18s;
 }
-/* dots */
-.p-dots {
-  position: absolute; bottom: .6rem; left: 50%;
-  transform: translateX(-50%);
-  display: flex; gap: .35rem; z-index: 2;
+.m-arrow:hover { background: rgba(0, 0, 0, .85); }
+.m-arrow.prev { left: .75rem; }
+.m-arrow.next { right: .75rem; }
+.m-count {
+  position: absolute; left: .75rem; bottom: .75rem; z-index: 3;
+  font-family: var(--f-mono); font-size: .68rem; letter-spacing: .08em;
+  background: rgba(0, 0, 0, .6); color: #fff; padding: .3rem .55rem;
 }
-.p-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,.4);
-  transition: background .2s, transform .2s;
-  cursor: pointer; border: none; padding: 0;
+.m-media.single .m-arrow, .m-media.single .m-count { display: none; }
+.m-info { overflow-y: auto; padding: 2.25rem 2rem 2rem; }
+.m-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; padding-right: 2.5rem; }
+.m-year { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .08em; color: var(--text-3); }
+.m-title {
+  font-weight: 600; font-size: 1.6rem;
+  letter-spacing: .04em; text-transform: uppercase;
+  line-height: 1.2; margin-bottom: 1.25rem;
 }
-.p-dot.active { background: #fff; transform: scale(1.3); }
-.p-dots:has(.p-dot:only-child) { display: none; }
-/* arrow buttons */
-.p-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  z-index: 3; background: rgba(0,0,0,.45); border: none;
-  color: #fff; width: 30px; height: 30px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  opacity: 0; transition: opacity .18s;
-  pointer-events: none;
-}
-.p-media:hover .p-arrow { opacity: 1; pointer-events: auto; }
-.p-arrow:hover { background: rgba(0,0,0,.7); }
-.p-arrow.prev { left: .5rem; }
-.p-arrow.next { right: .5rem; }
-/* placeholder slide */
-.media-ph {
-  display: flex; flex-direction: column;
-  align-items: center; gap: .5rem;
-  color: var(--text-3); text-align: center; padding: 1.5rem;
-  width: 100%; height: 100%; justify-content: center;
-}
-.ph-box {
-  width: 44px; height: 44px;
-  border: 1.5px dashed var(--border);
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: .2rem;
-}
-.ph-box svg { opacity: .45; }
-.ph-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .65rem; letter-spacing: .07em;
-  text-transform: uppercase; color: var(--text-3);
-}
-.ph-hint { font-size: .7rem; color: var(--text-3); opacity: .55; }
-/* card body */
-.p-info { padding: 1.35rem 1.35rem 1.25rem; }
-.p-meta {
-  display: flex; justify-content: space-between;
-  align-items: center; margin-bottom: .65rem;
-}
-.p-cat {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .63rem; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: var(--accent);
-}
-.p-year {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .63rem; color: var(--text-3); letter-spacing: .04em;
-}
-.p-title {
-  font-family: 'Syne', sans-serif; font-weight: 700;
-  font-size: 1.2rem; letter-spacing: -.01em;
-  color: var(--text); margin-bottom: .55rem; line-height: 1.2;
-}
-.p-desc {
-  font-size: .88rem; color: var(--text-2);
-  line-height: 1.62; margin-bottom: 1.1rem;
-}
-.p-tags { display: flex; gap: .45rem; flex-wrap: wrap; }
+.m-copy p { color: var(--text-2); font-size: .98rem; line-height: 1.7; }
+.m-copy p + p { margin-top: 1rem; }
+.m-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.5rem; }
 .tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .62rem; font-weight: 500; letter-spacing: .03em;
-  color: var(--text-2); background: var(--surface);
-  border: 1px solid var(--border);
-  padding: .26rem .58rem; border-radius: 3px;
+  font-family: var(--f-mono); font-size: .64rem;
+  letter-spacing: .04em; color: var(--text-2);
+  border: 1px solid var(--line-strong); padding: .28rem .55rem;
 }
-.p-links {
-  display: flex; gap: .75rem;
-  margin-top: 1rem; padding-top: 1rem;
-  border-top: 1px solid var(--border-sub);
+.m-links { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.m-links:empty { display: none; }
+.m-links a {
+  font-size: .76rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  border-bottom: 1px solid var(--line-strong); padding-bottom: 2px;
+  transition: border-color .18s, color .18s;
 }
-.p-link {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .68rem; letter-spacing: .04em;
-  color: var(--text-3);
-  display: flex; align-items: center; gap: .35rem;
-  transition: color .18s;
+.m-links a:hover { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 860px) {
+  dialog { overflow-y: auto; }
+  .m-grid { grid-template-columns: 1fr; height: auto; }
+  .m-media { aspect-ratio: 4 / 3; }
+  .m-info { overflow: visible; padding: 1.5rem 1.25rem 1.75rem; }
 }
-.p-link:hover { color: var(--accent); }
-/* ── SKILLS ── */
+ 
+/* ───────── SKILLS ───────── */
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3rem; margin-top: 3rem;
 }
-@media (max-width: 780px) { .skills-grid { grid-template-columns: 1fr; gap: 2.25rem; } }
+@media (max-width: 780px) { .skills-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
 .sg-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .7rem; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 1.25rem;
-  display: flex; align-items: center; gap: .6rem;
+  font-size: .78rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); padding-bottom: .85rem;
+  border-bottom: 1px solid var(--line-strong);
 }
-.sg-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-.sk-list { list-style: none; display: flex; flex-direction: column; gap: .58rem; }
-.sk-list li {
-  font-size: .9rem; color: var(--text-2);
-  display: flex; align-items: center; gap: .6rem;
-}
-.sk-list li::before {
-  content: ''; width: 4px; height: 4px;
-  border-radius: 50%; background: var(--accent-2); flex-shrink: 0;
-}
-/* ── ABOUT ── */
+.sk-list { list-style: none; }
+.sk-list li { padding: .7rem 0; border-bottom: 1px solid var(--line); color: var(--text-2); font-size: .98rem; }
+ 
+/* ───────── ABOUT ───────── */
 .about-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 5rem; align-items: start;
 }
 @media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
-.about-bio { font-size: 1.02rem; color: var(--text-2); line-height: 1.78; }
+.about-bio { font-size: 1.1rem; color: var(--text-2); line-height: 1.75; max-width: 34rem; }
 .about-bio + .about-bio { margin-top: 1rem; }
-.edu-block {
-  border-left: 2px solid var(--accent);
-  padding-left: 1.35rem; margin-bottom: 1.75rem;
-}
-.edu-school {
-  font-family: 'Syne', sans-serif; font-weight: 700;
-  font-size: 1rem; color: var(--text); margin-bottom: .18rem;
-}
-.edu-deg { font-size: .88rem; color: var(--text-2); margin-bottom: .12rem; }
-.edu-yr {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .68rem; color: var(--text-3); letter-spacing: .04em;
-}
-.certs { margin-top: 2.5rem; }
-.certs-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .68rem; font-weight: 500;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--accent-2); margin-bottom: 1rem;
-}
-.cert-row { display: flex; flex-direction: column; gap: .75rem; }
-.cert-item {
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 1rem;
-  padding: .9rem 1.1rem;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 6px;
-}
-.cert-name { font-size: .88rem; font-weight: 600; color: var(--text); }
-.cert-issuer {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .65rem; color: var(--text-3); letter-spacing: .04em;
-}
-.cert-yr {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .7rem; color: var(--accent); letter-spacing: .06em; flex-shrink: 0;
-}
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border-sub);
-  padding: 2.25rem var(--section-px);
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-}
-.f-copy {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .68rem; color: var(--text-3); letter-spacing: .04em;
-}
-.f-links { display: flex; gap: 1.5rem; align-items: center; }
-.f-link {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .7rem; color: var(--text-2); letter-spacing: .04em;
-  display: flex; align-items: center; gap: .4rem;
-  transition: color .18s;
-}
-.f-link:hover { color: var(--accent); }
-/* ── RESPONSIVE ── */
+.about-grid .s-title { margin-bottom: 1.75rem; }
+.edu { border-left: 2px solid var(--accent); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+.edu-school { font-weight: 600; font-size: 1.1rem; letter-spacing: .04em; text-transform: uppercase; }
+.edu-deg { color: var(--text-2); }
+.edu-yr { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .06em; color: var(--text-3); margin-top: .2rem; }
+.certs-label { font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: .85rem; }
+.cert { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .95rem 0; border-top: 1px solid var(--line); }
+.cert:last-child { border-bottom: 1px solid var(--line); }
+.cert-name { font-weight: 600; }
+.cert-issuer { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; color: var(--text-3); }
+.cert-yr { font-family: var(--f-mono); font-size: .72rem; color: var(--text-2); }
+ 
+/* ───────── FOOTER ───────── */
+footer { border-top: 1px solid var(--line); padding: 2.25rem 0; }
+.foot-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.f-copy { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .04em; color: var(--text-3); }
+.f-links { display: flex; gap: 1.75rem; }
+.f-links a { font-size: .76rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--text-2); transition: color .18s; }
+.f-links a:hover { color: var(--text); }
+ 
 @media (max-width: 640px) {
   .nav-links { display: none; }
-  nav { padding: 0 1.5rem; }
-  .project-card { flex: 0 0 300px; }
-}
-a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px; border-radius: 2px;
+  .nav-brand { flex: 1; }
+  .block { padding: 5rem 0; }
 }
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <span class="nav-brand">sofia lobynicheva</span>
+ 
+<!-- ───────── NAV ───────── -->
+<nav id="nav">
+  <a class="nav-brand" href="#top">Sofia Lobynicheva</a>
   <ul class="nav-links">
-    <li><a href="#cad">cad</a></li>
-    <li><a href="#hardware">hardware</a></li>
-    <li><a href="#automotive">automotive</a></li>
-    <li><a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">linkedin</a></li>
-    <li><a href="#about">about</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">LinkedIn</a></li>
   </ul>
-  <div class="nav-right">
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme">
-      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="5"/>
-        <line x1="12" y1="1" x2="12" y2="3"/>
-        <line x1="12" y1="21" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="3" y2="12"/>
-        <line x1="21" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-    </button>
-  </div>
+  <button class="theme-btn" id="themeBtn" aria-label="Toggle colour theme">
+    <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
 </nav>
-
-<!-- HERO -->
-<section class="hero" aria-label="Introduction">
-  <div class="orb orb-1" aria-hidden="true"></div>
-  <div class="orb orb-2" aria-hidden="true"></div>
-  <p class="hero-eye">Portfolio</p>
-  <h1 class="hero-name">Sofia<br>Lobynicheva</h1>
-  <p class="hero-sub">Engineering Student · Texas A&amp;M '30</p>
-  <p class="hero-bio">General engineering student with roots in robotics, CAD design, and systems programming. If there is no tutorial, I figure it out. </p>
-  <div class="hero-ctas">
-    <a href="#cad" class="btn-primary">Projects ↓</a>
-    <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
-  </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <span class="scroll-line"></span>
-    scroll
-  </div>
-</section>
-
-<!-- CAD -->
-<section id="cad">
-  <p class="s-eye">// cad</p>
-  <h2 class="s-title">CAD</h2>
-  <div class="project-row-wrap">
-    <div class="project-row">
-
-      <!-- Fuel Diverter -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-c1">
-            <div class="p-slide">
-              <img src="Screenshot 2026-08-26 002239.png" alt="Fuel diverter Fusion 360 model">
-            </div>
-            <div class="p-slide">
-              <img src="fuel diverter before.jpeg" alt="Fuel hose leak location before fix">
-            </div>
-            <div class="p-slide">
-              <img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-c1"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">CAD</span>
-            <span class="p-year">2025</span>
-          </div>
-          <h3 class="p-title">Duramax Fuel Leak Diverter</h3>
-          <p class="p-desc">The 3.0L Duramax diesel has a known fill hose leak that drips fuel directly onto suspension components, accelerating deterioration. GM acknowledged the issue via technical service bulletin but never released a fix. Designed and fabricated a custom diverter that redirects the drip away from suspension components and onto the ground instead.</p>
-          <div class="p-tags">
-            <span class="tag">Fusion 360</span>
-            <span class="tag">Parametric Modeling</span>
-            <span class="tag">Reverse Engineering</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Solar Enclosure Thermal Management -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-c2">
-            <div class="p-slide">
-              <img src="solar-controller-base.jpg.png" alt="Elevated controller base CAD model">
-            </div>
-            <div class="p-slide">
-              <img src="solar-fan-stand.jpg.png" alt="Angled fan bracket CAD model">
-            </div>
-            <div class="p-slide">
-              <img src="solar-vent-housing.jpg.png" alt="Dual fan vent housing CAD model">
-            </div>
-            <div class="p-slide">
-              <img src="solar-vent-pipe.jpg.png" alt="45-degree vent pipe CAD model">
-            </div>
-            <div class="p-slide">
-              <img src="last thing fdor solar sentry.png" alt="Solar enclosure full assembly CAD">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-c2"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">CAD</span>
-            <span class="p-year">2025</span>
-          </div>
-          <h3 class="p-title">Solar Sentry Light Project</h3>
-          <p class="p-desc">Designed a four-part thermal management system for an off-grid solar enclosure running in direct Texas sun: a dual fan vent housing, 45° vent pipe with ring gaskets, angled fan bracket, and an elevated controller base that creates passive airflow underneath. All modeled in Fusion 360 and 3D printed in PETG for heat resistance. Fans run on a thermal trigger and only spin above 90°F to avoid draining the battery they're cooling.</p>
-          <div class="p-tags">
-            <span class="tag">Fusion 360</span>
-            <span class="tag">Thermal Design</span>
-            <span class="tag">PETG Printing</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- GM Wheel Well Covers -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-c3">
-            <div class="p-slide">
-              <img src="gmcwheelwellcad.png" alt="Wheel well cover Fusion 360 model">
-            </div>
-            <div class="p-slide">
-              <img src="wheelwell.jpg" alt="Bare wheel well before cover installation">
-            </div>
-            <div class="p-slide">
-              <img src="IMG_7324.jpg" alt="Wheel well cover installed on vehicle">
-            </div>
-            <div class="p-slide">
-              <img src="gmswheelwellclip.png" alt="Snap-fit mounting clip CAD detail">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-c3"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">CAD</span>
-            <span class="p-year">2025</span>
-          </div>
-          <h3 class="p-title">GM Wheel Well Covers</h3>
-          <p class="p-desc">GM leaves the wheel wells on certain trucks without rubber lining, exposing the inner body to road debris and moisture. Modeled custom covers in Fusion 360 to fill the gap, measured directly off the vehicle and designed for a snap-fit install without drilling.</p>
-          <div class="p-tags">
-            <span class="tag">Fusion 360</span>
-            <span class="tag">Snap-Fit Design</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- PIR Sensor Enclosure -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-c4">
-            <div class="p-slide">
-              <img src="pir-attachment.jpg.png" alt="PIR sensor attachment bracket CAD model">
-            </div>
-            <div class="p-slide">
-              <img src="pir-enclosure.jpg.png" alt="PIR sensor enclosure with threaded dome cap CAD model">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-c4"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">CAD</span>
-            <span class="p-year">2026</span>
-          </div>
-          <h3 class="p-title">Motion Tracking Spotlight System</h3>
-          <p class="p-desc">Built a ceiling-mounted spotlight that detects motion and physically rotates to illuminate whoever triggered it. A ring of PIR sensors provides near-omnidirectional coverage; when any sensor fires, a Raspberry Pi identifies the direction and drives a custom servo gimbal to pan and tilt the spotlight onto the target. The enclosure, sensor mounts, and gimbal brackets are all custom modeled in Fusion 360 and 3D printed. Originally designed to mount on a tree for outdoor perimeter coverage, but ran into real constraints: PIR sensors drift significantly with ambient temperature swings, and finding a power solution that survives outdoor conditions without a wired connection is still an open problem. Currently working through both.</p>
-          <div class="p-tags">
-            <span class="tag">Fusion 360</span>
-            <span class="tag">Enclosure Design</span>
-          </div>
-        </div>
-      </article>
-<!--bubble wands-->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-c5">
-            <div class="p-slide">
-              <img src="xlwand.png" alt="Wand CAD">
-            </div>
-            <div class="p-slide">
-              <img src="bubblewandcad.jpg" alt="Wand CAD">
-            </div>
-             <div class="p-slide">
-              <img src="wand.png" alt="Wand CAD">
-            </div>
-             <div class="p-slide">
-              <img src="wandprototype.png" alt="Wand CAD">
-            </div>
-            <div class="p-slide">
-              <img src="largewand.png" alt="Wand CAD">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-c5"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">CAD</span>
-            <span class="p-year">2024 - present</span>
-          </div>
-          <h3 class="p-title">Performance Bubble Wands</h3>
-          <p class="p-desc">Designed a set of custom bubble wands for use in live shows, including a single large ring, a 3-ring cluster, and a 9-ring grid for high-volume output. The rings use a toothed outer profile to grip the string and hold bubble solution more effectively. Went through 12+ iterations mainly to solve print failures, adding internal supports until the geometry printed reliably. Several versions were printed and used in actual performances.</p>
-          <div class="p-tags">
-            <span class="tag">Fusion 360</span>
-          </div>
-        </div>
-      </article>
-
+ 
+<!-- ───────── HERO ───────── -->
+<header class="hero" id="top">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+ 
+  <div class="wrap hero-inner">
+    <h1 class="hero-name">Sofia<br>Lobynicheva</h1>
+    <p class="hero-bio">Robotics, CAD, embedded systems, cars.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-solid">View projects</a>
+      <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
     </div>
   </div>
-</section>
-
-<!-- HARDWARE -->
-<section id="hardware">
-  <p class="s-eye">// hardware</p>
-  <h2 class="s-title">Hardware</h2>
-  <div class="project-row-wrap">
-    <div class="project-row">
-
-      <!-- Motion Tracking Spotlight -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-h1">
-            <div class="p-slide">
-              <img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly">
-            </div>
-            <div class="p-slide">
-              <img src="diff angle.jpeg" alt="Spotlight housing alternate angle">
-            </div>
-            <div class="p-slide">
-              <img src="oterview.jpeg" alt="System mounted overview">
-            </div>
-            <div class="p-slide">
-              <img src="topview1.jpg" alt="Spotlight top view showing gimbal">
-            </div>
-            <div class="p-slide">
-              <video src="motionsensor.mp4" autoplay muted loop playsinline></video>
-            </div>
-            <div class="p-slide">
-              <img src="inside.jpeg" alt="Interior electronics and wiring">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-h1"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">Hardware</span>
-            <span class="p-year">2026</span>
-          </div>
-          <h3 class="p-title">Motion Tracking Spotlight System</h3>
-          <p class="p-desc">Brain is a Raspberry Pi Zero 2 WH (quad-core Cortex-A53 at 1.1GHz, 512MB RAM) running the full detection and servo control loop. A ring of HC-SR501 pyroelectric PIR sensors provides near-omnidirectional coverage; when any sensor fires, the Pi identifies the direction and sends I2C commands to a MakerFocus 16-channel PWM driver (12-bit resolution, up to 1526Hz) to position the Yahboom 2-DOF metal servo gimbal. Offloading PWM generation to the dedicated driver keeps the Pi's limited GPIO free and eliminates timing jitter from the OS scheduler. The spotlight switches through an optocoupler-isolated relay (10A rated) to protect the Pi GPIO from inductive kickback on the lamp circuit. Power comes from a 12V supply stepped down to 5V rail via an XL4015 DC-DC buck converter (5A, 75W), powering both the Pi and servo logic. Two open problems: HC-SR501 sensors drift with ambient temperature swings outdoors, producing false triggers; and a weatherproof power solution without a hard-wired connection is still unresolved. Both are actively being worked through.</p>
-          <div class="p-tags">
-            <span class="tag">Raspberry Pi</span>
-            <span class="tag">Python</span>
-            <span class="tag">Servo Control</span>
-            <span class="tag">Embedded Systems</span>
-          </div>
-          <div class="p-links">
-            <a href="https://github.com/sofialobynicheva/motion-tracking-sentry" target="_blank" rel="noopener" class="p-link">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Github Repo
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Solar Sentry System -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-h2">
-            <div class="p-slide">
-              <img src="battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" style="object-position: center 70%;">
-            </div>
-            <div class="p-slide">
-              <img src="box.jpg" alt="Weatherproof solar enclosure">
-            </div>
-            <div class="p-slide">
-              <img src="solar controlelr.jpg" alt="PWM/MPPT solar charge controller">
-            </div>
-            <div class="p-slide">
-              <img src="panels.jpg" alt="Three 100W solar panels mounted">
-            </div>
-            <div class="p-slide">
-              <img src="light.jpg" alt="LED security lights installed">
-            </div>
-            <div class="p-slide">
-              <img src="solarsentrybefore.jpg" alt="Street before lighting installation">
-            </div>
-            <div class="p-slide">
-              <img src="solarsentryafter.jpg" alt="Street illuminated after installation">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-h2"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">Hardware</span>
-            <span class="p-year">2025</span>
-          </div>
-          <h3 class="p-title">Solar Sentry Light Project</h3>
-          <p class="p-desc">Pure 12V DC, designed to run fully off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a PWM/MPPT controller. Power runs via 10AWG feeder cable from the backyard to minimize voltage drop over the long run, distributing through 14AWG landscape wire and Wago 221 connectors for modular fault isolation. Two operating modes: a continuous 72W base load (two 18W + one 36W LED) running dusk to dawn, and a dormant 36W flood bar that triggers on motion for ~30 seconds. At 3.6A constant draw, the system still hits float voltage (14.5V) by 2PM in Texas sun with 2.5 nights of battery autonomy in overcast conditions. Total build cost: ~$620 versus $2,000+ to trench 120V AC to the street.</p>
-          <div class="p-tags">
-            <span class="tag">DC Power Systems</span>
-            <span class="tag">Solar / LiFePO4</span>
-            <span class="tag">Off-Grid Design</span>
-          </div>
-          <div class="p-links">
-            <a href="https://docs.google.com/document/d/e/2PACX-1vSfy5GZDMHXy5edRup2MUSpb0m64ijIj2VoTAkH6L70IK3DSi_-fCkKyAo12rXHs16S7A8Qk8e4jiSx/pub" target="_blank" rel="noopener" class="p-link">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Bill of Materials
-            </a>
-          </div>
-        </div>
-      </article>
-
-    </div>
+ 
+  <div class="wrap hero-foot">
+    <p class="hero-meta"><span>Texas A&amp;M</span><span>General Engineering</span><span>Class of 2030</span><span>Building</span></p>
   </div>
-</section>
-
-<!-- AUTOMOTIVE -->
-<section id="automotive">
-  <p class="s-eye">// automotive</p>
-  <h2 class="s-title">Automotive</h2>
-  <div class="project-row-wrap">
-    <div class="project-row">
-
-      <!-- S650 Front End Repair -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-a1">
-            <div class="p-slide">
-              <img src="puttingontire.jpg" alt="Reinstalling wheel">
-            </div>
-            <div class="p-slide">
-              <img src="lugnuts.jpg" alt="Torquing lug nuts to spec">
-            </div>
-            <div class="p-slide">
-              <img src="carfaraway.JPG" alt="S650 Mustang" style="object-position: center 70%;">
-            </div>
-            <div class="p-slide">
-              <img src="bumpercloseupshotjpeg.jpeg" alt="Bumper detail">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-a1"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">Automotive</span>
-            <span class="p-year">2026</span>
-          </div>
-          <h3 class="p-title">S650 Mustang Front End Repair</h3>
-          <p class="p-desc">After a parking lot accident on my 2025 S650 EcoBoost Mustang, I disassembled the full front end myself rather than pay the $2,100 shop quotes I was getting. Teardown included the full bumper cover and all bumper trim, both side markers, the left headlight, both front wheel well covers, the inner fender lining, and the rocker panel. The rocker panel had no existing removal tutorials for the S650 generation, so I worked it out directly off the car. The car then went to a shop for paint correction and clear coat respray. Full reassembly after was done by me.</p>
-          <div class="p-tags">
-            <span class="tag">Panel Removal</span>
-            <span class="tag">Mechanical Assembly</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- MBRP Catback Exhaust -->
-      <article class="project-card">
-        <div class="p-media">
-          <div class="p-slides" id="slides-a2">
-            <div class="p-slide">
-              <img src="exhaustedge.jpg" alt="MBRP exhaust tip at bumper cutout">
-            </div>
-            <div class="p-slide">
-              <img src="exhaustrightview.jpg" alt="Exhaust system right side view">
-            </div>
-            <div class="p-slide">
-              <img src="Exhaustsetupbottom.jpg" alt="Exhaust hangers and undercarriage routing">
-            </div>
-          </div>
-          <div class="p-dots" id="dots-a2"></div>
-        </div>
-        <div class="p-info">
-          <div class="p-meta">
-            <span class="p-cat">Automotive</span>
-            <span class="p-year">2026</span>
-          </div>
-          <h3 class="p-title">MBRP Catback Exhaust Install</h3>
-          <p class="p-desc">Installed an MBRP Race Series catback exhaust on my 2025 S650 EcoBoost Mustang. The job required safely lifting and supporting the car to access the full undercarriage, locating the correct jacking points on the S650 chassis to avoid damaging the floor pans, and unbolting the stock exhaust from the catalytic converter back. Fit and alignment of the new system took adjustment before the hangers seated correctly. The result is a significant tone change over stock with no tuning required.</p>
-          <div class="p-tags">
-            <span class="tag">Exhaust Systems</span>
-            <span class="tag">Vehicle Lift & Support</span>
-            <span class="tag">Mechanical Assembly</span>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <p class="s-eye">// skills</p>
-  <h2 class="s-title">Skills</h2>
-  <div class="skills-grid">
-    <div>
-      <p class="sg-title">Programming</p>
-      <ul class="sk-list">
-        <li>Python</li>
-        <li>Java</li>
-        <li>HTML &amp; CSS</li>
-        <li>Logic Programming (s(ASP))</li>
-      </ul>
-    </div>
-    <div>
-      <p class="sg-title">Engineering &amp; Hardware</p>
-      <ul class="sk-list">
-        <li>CAD Modeling (Fusion 360, OnShape)</li>
-        <li>FDM 3D Printing (Bambu Studio)</li>
-        <li>Embedded Systems (Raspberry Pi, Arduino)</li>
-        <li>DC Power &amp; Solar System Design</li>
-        <li>Thermal &amp; Enclosure Design</li>
-        <li>Sensors, Servos &amp; Actuators</li>
-      </ul>
-    </div>
-    <div>
-      <p class="sg-title">Others &amp; Tools</p>
-      <ul class="sk-list">
-        <li>System Hardening &amp; Network Defense</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <p class="s-eye">// about</p>
-  <div class="about-grid">
-    <div>
-      <h2 class="s-title" style="margin-bottom:1.5rem;">A Bit<br>About Me</h2>
-      <p class="about-bio">I'm a first-year General Engineering student at Texas A&amp;M, with a background that spans from competitive robotics (FTC &amp; VEX) to hands-on mechanical and electrical builds. I love problems that involve mechatronics, automotive engineering, and hardware-software integration.</p>
-      <p class="about-bio">Native speaker of both Russian and English. Always building something.</p>
-    </div>
-    <div>
-      <div class="edu-block">
-        <p class="edu-school">Texas A&amp;M University</p>
-        <p class="edu-deg">General Engineering</p>
-        <p class="edu-yr">Class of 2030 · College Station, TX</p>
+</header>
+ 
+<!-- ───────── PROJECTS ───────── -->
+<section class="block" id="projects">
+  <div class="wrap">
+    <div class="projects-head">
+      <h2 class="s-title">Projects</h2>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="chip" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" data-filter="hardware" aria-pressed="false">Hardware</button>
+        <button class="chip" data-filter="automotive" aria-pressed="false">Automotive</button>
+        <button class="chip" data-filter="design" aria-pressed="false">Design &amp; Print</button>
+        <button class="chip" data-filter="progress" aria-pressed="false">In Progress</button>
       </div>
-      <div class="certs">
+    </div>
+ 
+    <!--
+      HOW TO ADD A PROJECT: copy any <article class="card"> below and edit it.
+        data-cat     : space-separated list of  hardware | automotive | design
+        data-status  : "done" or "progress"  ("progress" also shows under the In Progress filter)
+        status badge : class is-done (green), is-progress (amber), is-dev (amber, blinking)
+        card photo   : the <img> inside .card-media  (for no photo, use <div class="ph">No photos yet</div>)
+        popup        : everything inside <div class="detail" hidden> — one .slide per photo/video,
+                       .d-copy for text, .d-tags for tags, .d-links for links
+    -->
+    <div class="grid" id="grid">
+ 
+      <!-- Motion Tracking Spotlight -->
+      <article class="card" data-cat="hardware design" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Hardware</span><span>Design</span></span>
+            <span class="status is-progress">Iterating</span>
+          </div>
+          <h3 class="card-title">Motion Tracking Spotlight</h3>
+          <p class="card-sum">A ring of PIR sensors detects motion and a Raspberry Pi aims a servo gimbal spotlight at the source. Custom printed enclosure, sensor mounts, and gimbal brackets.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2026</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly"></div>
+          <div class="slide"><img src="diff angle.jpeg" alt="Spotlight housing alternate angle" loading="lazy"></div>
+          <div class="slide"><img src="oterview.jpeg" alt="System mounted overview" loading="lazy"></div>
+          <div class="slide"><img src="topview1.jpg" alt="Spotlight top view showing gimbal" loading="lazy"></div>
+          <div class="slide"><video src="motionsensor.mp4" autoplay muted loop playsinline></video></div>
+          <div class="slide"><img src="inside.jpeg" alt="Interior electronics and wiring" loading="lazy"></div>
+          <div class="slide"><img src="pir-attachment.jpg.png" alt="PIR sensor attachment bracket CAD model" loading="lazy"></div>
+          <div class="slide"><img src="pir-enclosure.jpg.png" alt="PIR sensor enclosure with threaded dome cap CAD model" loading="lazy"></div>
+          <div class="d-copy">
+            <p>Brain is a Raspberry Pi Zero 2 WH (quad-core Cortex-A53 at 1.1GHz, 512MB RAM) running the full detection and servo control loop. A ring of HC-SR501 pyroelectric PIR sensors provides near-omnidirectional coverage; when any sensor fires, the Pi identifies the direction and sends I2C commands to a MakerFocus 16-channel PWM driver (12-bit resolution, up to 1526Hz) to position the Yahboom 2-DOF metal servo gimbal. Offloading PWM generation to the dedicated driver keeps the Pi's limited GPIO free and eliminates timing jitter from the OS scheduler.</p>
+            <p>The spotlight switches through an optocoupler-isolated relay (10A rated) to protect the Pi GPIO from inductive kickback on the lamp circuit. Power comes from a 12V supply stepped down to a 5V rail via an XL4015 DC-DC buck converter (5A, 75W), powering both the Pi and servo logic.</p>
+            <p>The enclosure, sensor mounts, and gimbal brackets are all custom modeled in Fusion 360 and 3D printed. Built as a ceiling-mounted spotlight, originally designed to mount on a tree for outdoor perimeter coverage.</p>
+            <p>Two open problems: HC-SR501 sensors drift with ambient temperature swings outdoors, producing false triggers, and a weatherproof power solution without a hard-wired connection is still unresolved. Both are being worked on.</p>
+          </div>
+          <div class="d-tags"><span class="tag">Raspberry Pi</span><span class="tag">Python</span><span class="tag">Servo Control</span><span class="tag">Embedded Systems</span><span class="tag">Fusion 360</span><span class="tag">Enclosure Design</span></div>
+          <div class="d-links"><a href="https://github.com/sofialobynicheva/motion-tracking-sentry" target="_blank" rel="noopener">GitHub repo</a></div>
+        </div>
+      </article>
+ 
+      <!-- Solar Sentry -->
+      <article class="card" data-cat="hardware design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Hardware</span><span>Design</span></span>
+            <span class="status is-done">Complete</span>
+          </div>
+          <h3 class="card-title">Solar Sentry Light</h3>
+          <p class="card-sum">Off-grid 12V solar lighting for the street. About $620 versus $2,000+ to trench AC power.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2025</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
+          <div class="slide"><img src="solarsentrybefore.jpg" alt="Street before lighting installation" loading="lazy"></div>
+          <div class="slide"><img src="battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" loading="lazy"></div>
+          <div class="slide"><img src="box.jpg" alt="Weatherproof solar enclosure" loading="lazy"></div>
+          <div class="slide"><img src="solar controlelr.jpg" alt="PWM/MPPT solar charge controller" loading="lazy"></div>
+          <div class="slide"><img src="panels.jpg" alt="Three 100W solar panels mounted" loading="lazy"></div>
+          <div class="slide"><img src="light.jpg" alt="LED security lights installed" loading="lazy"></div>
+          <div class="slide"><img src="solar-controller-base.jpg.png" alt="Elevated controller base CAD model" loading="lazy"></div>
+          <div class="slide"><img src="solar-fan-stand.jpg.png" alt="Angled fan bracket CAD model" loading="lazy"></div>
+          <div class="slide"><img src="solar-vent-housing.jpg.png" alt="Dual fan vent housing CAD model" loading="lazy"></div>
+          <div class="slide"><img src="solar-vent-pipe.jpg.png" alt="45-degree vent pipe CAD model" loading="lazy"></div>
+          <div class="slide"><img src="last thing fdor solar sentry.png" alt="Solar enclosure full assembly CAD" loading="lazy"></div>
+          <div class="d-copy">
+            <p>Pure 12V DC, designed to run fully off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a PWM/MPPT controller. Power runs via 10AWG feeder cable from the backyard to minimize voltage drop over the long run, distributing through 14AWG landscape wire and Wago 221 connectors for modular fault isolation.</p>
+            <p>Two operating modes: a continuous 72W base load (two 18W + one 36W LED) running dusk to dawn, and a dormant 36W flood bar that triggers on motion for ~30 seconds. At 3.6A constant draw, the system still hits float voltage (14.5V) by 2PM in Texas sun with 2.5 nights of battery autonomy in overcast conditions. Total build cost: ~$620 versus $2,000+ to trench 120V AC to the street.</p>
+            <p>The enclosure runs in direct Texas sun, so I designed a four-part thermal management system in Fusion 360: a dual fan vent housing, a 45° vent pipe with ring gaskets, an angled fan bracket, and an elevated controller base that creates passive airflow underneath. Everything is printed in PETG for heat resistance. The fans run on a thermal trigger and only spin above 90°F to avoid draining the battery they're cooling.</p>
+          </div>
+          <div class="d-tags"><span class="tag">DC Power Systems</span><span class="tag">Solar / LiFePO4</span><span class="tag">Off-Grid Design</span><span class="tag">Fusion 360</span><span class="tag">Thermal Design</span><span class="tag">PETG Printing</span></div>
+          <div class="d-links"><a href="https://docs.google.com/document/d/e/2PACX-1vSfy5GZDMHXy5edRup2MUSpb0m64ijIj2VoTAkH6L70IK3DSi_-fCkKyAo12rXHs16S7A8Qk8e4jiSx/pub" target="_blank" rel="noopener">Bill of materials</a></div>
+        </div>
+      </article>
+ 
+      <!-- Duramax Fuel Leak Diverter -->
+      <article class="card" data-cat="automotive design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Automotive</span><span>Design</span></span>
+            <span class="status is-done">Complete</span>
+          </div>
+          <h3 class="card-title">Duramax Fuel Leak Diverter</h3>
+          <p class="card-sum">The 3.0L Duramax fill hose leaks onto the suspension, and GM never released a fix. Designed a diverter that sends the drip to the ground.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2025</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
+          <div class="slide"><img src="fuel diverter before.jpeg" alt="Fuel hose leak location before fix" loading="lazy"></div>
+          <div class="slide"><img src="Screenshot 2026-08-26 002239.png" alt="Fuel diverter Fusion 360 model" loading="lazy"></div>
+          <div class="d-copy">
+            <p>The 3.0L Duramax diesel has a known fill hose leak that drips fuel directly onto suspension components, accelerating deterioration. GM acknowledged the issue via technical service bulletin but never released a fix. Designed and fabricated a custom diverter that redirects the drip away from suspension components and onto the ground instead.</p>
+          </div>
+          <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Parametric Modeling</span><span class="tag">Reverse Engineering</span></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+      <!-- GM Wheel Well Covers -->
+      <article class="card" data-cat="automotive design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="IMG_7324.jpg" alt="Wheel well cover installed on vehicle" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Automotive</span><span>Design</span></span>
+            <span class="status is-done">Complete</span>
+          </div>
+          <h3 class="card-title">GM Wheel Well Covers</h3>
+          <p class="card-sum">GM leaves the wheel wells on some trucks unlined. Modeled snap-fit covers measured off the vehicle, no drilling.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2025</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="IMG_7324.jpg" alt="Wheel well cover installed on vehicle" loading="lazy"></div>
+          <div class="slide"><img src="wheelwell.jpg" alt="Bare wheel well before cover installation" loading="lazy"></div>
+          <div class="slide"><img src="gmcwheelwellcad.png" alt="Wheel well cover Fusion 360 model" loading="lazy"></div>
+          <div class="slide"><img src="gmswheelwellclip.png" alt="Snap-fit mounting clip CAD detail" loading="lazy"></div>
+          <div class="d-copy">
+            <p>GM leaves the wheel wells on certain trucks without rubber lining, exposing the inner body to road debris and moisture. Modeled custom covers in Fusion 360 to fill the gap, measured directly off the vehicle and designed for a snap-fit install without drilling.</p>
+          </div>
+          <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Snap-Fit Design</span></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+      <!-- Performance Bubble Wands -->
+      <article class="card" data-cat="design" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="xlwand.png" alt="Bubble wand CAD" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Design</span></span>
+            <span class="status is-done">Complete</span>
+          </div>
+          <h3 class="card-title">Performance Bubble Wands</h3>
+          <p class="card-sum">Custom bubble wands for live shows, from a single ring to a 9-ring grid. 12+ iterations to get the prints reliable.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2024 – present</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="xlwand.png" alt="Bubble wand CAD" loading="lazy"></div>
+          <div class="slide"><img src="bubblewandcad.jpg" alt="Bubble wand CAD" loading="lazy"></div>
+          <div class="slide"><img src="wand.png" alt="Bubble wand CAD" loading="lazy"></div>
+          <div class="slide"><img src="wandprototype.png" alt="Bubble wand prototype" loading="lazy"></div>
+          <div class="slide"><img src="largewand.png" alt="Large bubble wand" loading="lazy"></div>
+          <div class="d-copy">
+            <p>Designed a set of custom bubble wands for use in live shows, including a single large ring, a 3-ring cluster, and a 9-ring grid for high-volume output. The rings use a toothed outer profile to grip the string and hold bubble solution more effectively. Went through 12+ iterations mainly to solve print failures, adding internal supports until the geometry printed reliably. Several versions were printed and used in actual performances.</p>
+          </div>
+          <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">3D Printing</span></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+      <!-- S650 Front End Repair -->
+      <article class="card" data-cat="automotive" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="puttingontire.jpg" alt="Reinstalling wheel" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Automotive</span></span>
+            <span class="status is-done">Complete</span>
+          </div>
+          <h3 class="card-title">S650 Mustang Front End Repair</h3>
+          <p class="card-sum">Took the front end apart myself after a parking lot accident instead of paying $2,100 in shop quotes. Figured out the S650 rocker panel removal with no tutorial.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2026</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="puttingontire.jpg" alt="Reinstalling wheel" loading="lazy"></div>
+          <div class="slide"><img src="lugnuts.jpg" alt="Torquing lug nuts to spec" loading="lazy"></div>
+          <div class="slide"><img src="carfaraway.JPG" alt="S650 Mustang" loading="lazy"></div>
+          <div class="slide"><img src="bumpercloseupshotjpeg.jpeg" alt="Bumper detail" loading="lazy"></div>
+          <div class="d-copy">
+            <p>After a parking lot accident on my 2025 S650 EcoBoost Mustang, I disassembled the full front end myself rather than pay the $2,100 shop quotes I was getting. Teardown included the full bumper cover and all bumper trim, both side markers, the left headlight, both front wheel well covers, the inner fender lining, and the rocker panel. The rocker panel had no existing removal tutorials for the S650 generation, so I worked it out directly off the car. The car then went to a shop for paint correction and clear coat respray. Full reassembly after was done by me.</p>
+          </div>
+          <div class="d-tags"><span class="tag">Panel Removal</span><span class="tag">Mechanical Assembly</span></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+      <!-- MBRP Catback Exhaust -->
+      <article class="card" data-cat="automotive" data-status="done" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><img src="exhaustedge.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Automotive</span></span>
+            <span class="status is-done">Complete</span>
+          </div>
+          <h3 class="card-title">MBRP Catback Exhaust</h3>
+          <p class="card-sum">MBRP Race Series catback on a 2025 S650 EcoBoost. Lifted and supported the car, pulled the stock system, and fitted the new one.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2026</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="slide"><img src="exhaustedge.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
+          <div class="slide"><img src="exhaustrightview.jpg" alt="Exhaust system right side view" loading="lazy"></div>
+          <div class="slide"><img src="Exhaustsetupbottom.jpg" alt="Exhaust hangers and undercarriage routing" loading="lazy"></div>
+          <div class="d-copy">
+            <p>Installed an MBRP Race Series catback exhaust on my 2025 S650 EcoBoost Mustang. The job required safely lifting and supporting the car to access the full undercarriage, locating the correct jacking points on the S650 chassis to avoid damaging the floor pans, and unbolting the stock exhaust from the catalytic converter back. Fit and alignment of the new system took adjustment before the hangers seated correctly. The result is a significant tone change over stock with no tuning required.</p>
+          </div>
+          <div class="d-tags"><span class="tag">Exhaust Systems</span><span class="tag">Vehicle Lift &amp; Support</span><span class="tag">Mechanical Assembly</span></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+      <!-- TVC Rocket (placeholder: swap the .ph div for an <img> and add .slide entries when you have photos) -->
+      <article class="card" data-cat="hardware" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><div class="ph">No photos yet</div></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Hardware</span></span>
+            <span class="status is-dev">In Development</span>
+          </div>
+          <h3 class="card-title">TVC Rocket</h3>
+          <p class="card-sum">Thrust vector controlled model rocket.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2026</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="d-copy">
+            <p>Thrust vector controlled model rocket. Write-up coming as the build progresses.</p>
+          </div>
+          <div class="d-tags"></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+      <!-- Hexapod (placeholder) -->
+      <article class="card" data-cat="hardware" data-status="progress" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="card-media"><div class="ph">No photos yet</div></div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="cats"><span>Hardware</span></span>
+            <span class="status is-dev">In Development</span>
+          </div>
+          <h3 class="card-title">Hexapod</h3>
+          <p class="card-sum">Six-legged walking robot.</p>
+          <div class="card-foot"><span class="card-num"></span><span class="card-year">2026</span></div>
+        </div>
+        <div class="detail" hidden>
+          <div class="d-copy">
+            <p>Six-legged walking robot. Write-up coming as the build progresses.</p>
+          </div>
+          <div class="d-tags"></div>
+          <div class="d-links"></div>
+        </div>
+      </article>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ───────── SKILLS ───────── -->
+<section class="block" id="skills">
+  <div class="wrap">
+    <h2 class="s-title">Skills</h2>
+    <div class="skills-grid">
+      <div>
+        <p class="sg-title">Programming</p>
+        <ul class="sk-list">
+          <li>Python</li>
+          <li>Java</li>
+          <li>HTML &amp; CSS</li>
+          <li>Logic Programming (s(ASP))</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sg-title">Engineering &amp; Hardware</p>
+        <ul class="sk-list">
+          <li>CAD Modeling (Fusion 360, OnShape)</li>
+          <li>FDM 3D Printing (Bambu Studio)</li>
+          <li>Embedded Systems (Raspberry Pi, Arduino)</li>
+          <li>DC Power &amp; Solar System Design</li>
+          <li>Thermal &amp; Enclosure Design</li>
+          <li>Sensors, Servos &amp; Actuators</li>
+        </ul>
+      </div>
+      <div>
+        <p class="sg-title">Other</p>
+        <ul class="sk-list">
+          <li>System Hardening &amp; Network Defense</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ───────── ABOUT ───────── -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <h2 class="s-title">About</h2>
+        <p class="about-bio">First-year General Engineering student at Texas A&amp;M. Background in competitive robotics (FTC and VEX) and hands-on mechanical and electrical builds.</p>
+        <p class="about-bio">Interested in mechatronics, automotive engineering, and hardware-software integration. Native speaker of Russian and English.</p>
+      </div>
+      <div>
+        <div class="edu">
+          <p class="edu-school">Texas A&amp;M University</p>
+          <p class="edu-deg">General Engineering</p>
+          <p class="edu-yr">Class of 2030 &nbsp;/&nbsp; College Station, TX</p>
+        </div>
         <p class="certs-label">Certifications</p>
-        <div class="cert-row">
-          <div class="cert-item">
+        <div>
+          <div class="cert">
             <div>
               <p class="cert-name">CompTIA Security+ ce</p>
               <p class="cert-issuer">CompTIA</p>
             </div>
             <span class="cert-yr">2026</span>
           </div>
-          <div class="cert-item">
+          <div class="cert">
             <div>
               <p class="cert-name">Java IT Specialist</p>
               <p class="cert-issuer">Certiport</p>
@@ -968,101 +753,190 @@ a:focus-visible, button:focus-visible {
     </div>
   </div>
 </section>
-
-<!-- FOOTER -->
+ 
+<!-- ───────── FOOTER ───────── -->
 <footer id="contact">
-  <p class="f-copy">© 2026 Sofia Lobynicheva</p>
-  <div class="f-links">
-    <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener" class="f-link">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
-        <rect x="2" y="9" width="4" height="12"/>
-        <circle cx="4" cy="4" r="2"/>
-      </svg>
-      LinkedIn
-    </a>
-    <a href="mailto:sofialobynicheva@gmail.com" class="f-link">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-        <polyline points="22,6 12,13 2,6"/>
-      </svg>
-      Email
-    </a>
+  <div class="wrap foot-inner">
+    <p class="f-copy">© 2026 Sofia Lobynicheva</p>
+    <div class="f-links">
+      <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:sofialobynicheva@gmail.com">Email</a>
+    </div>
   </div>
 </footer>
-
+ 
+<!-- ───────── PROJECT POPUP ───────── -->
+<dialog id="modal" aria-labelledby="mTitle">
+  <button class="m-close" id="mClose" aria-label="Close">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="m-grid">
+    <div class="m-media" id="mMedia">
+      <div class="m-slides" id="mSlides"></div>
+      <button class="m-arrow prev" id="mPrev" aria-label="Previous photo">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="m-arrow next" id="mNext" aria-label="Next photo">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="m-count" id="mCount"></div>
+    </div>
+    <div class="m-info">
+      <div class="m-meta" id="mMeta"></div>
+      <h3 class="m-title" id="mTitle"></h3>
+      <div class="m-copy" id="mCopy"></div>
+      <div class="m-tags" id="mTags"></div>
+      <div class="m-links" id="mLinks"></div>
+    </div>
+  </div>
+</dialog>
+ 
 <script>
-/* ── THEME ── */
 (function () {
+  /* ── THEME ── */
   var html = document.documentElement;
-  var btn  = document.getElementById('themeBtn');
-  var KEY  = 'sl-theme';
-  function applyTheme(dark) {
-    html.setAttribute('data-theme', dark ? 'dark' : 'light');
-    if (dark) html.classList.add('theme-dark');
-    else      html.classList.remove('theme-dark');
-  }
-  var saved;
-  try { saved = localStorage.getItem(KEY); } catch(_) {}
-  var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  applyTheme(saved !== null ? saved === 'dark' : sysDark);
-  btn.addEventListener('click', function () {
-    var nowDark = html.classList.contains('theme-dark');
-    applyTheme(!nowDark);
-    try { localStorage.setItem(KEY, nowDark ? 'light' : 'dark'); } catch(_) {}
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    try { localStorage.setItem('sl-theme', next); } catch (_) {}
   });
-})();
-
-/* ── CAROUSEL ── */
-document.querySelectorAll('.p-slides').forEach(function(slider) {
-  var dotsId = slider.id.replace('slides', 'dots');
-  var dotsEl = document.getElementById(dotsId);
-  var slides = slider.querySelectorAll('.p-slide');
-  var media  = slider.parentElement;
-
-  if (slides.length < 2) return;
-
-  /* dots */
-  slides.forEach(function(_, i) {
-    var d = document.createElement('button');
-    d.className = 'p-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', 'Slide ' + (i + 1));
-    d.onclick = function() {
-      slider.scrollTo({ left: slider.offsetWidth * i, behavior: 'smooth' });
-    };
-    dotsEl.appendChild(d);
+ 
+  /* ── HERO SPOTLIGHT (follows the cursor on desktop) ── */
+  (function () {
+    var hero = document.getElementById('top');
+    var canHover = window.matchMedia('(hover: hover)').matches;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!canHover || reduce) return;
+    var cx = null, cy = 0, tx = 0, ty = 0, raf = null;
+    function step() {
+      cx += (tx - cx) * 0.12;
+      cy += (ty - cy) * 0.12;
+      hero.style.setProperty('--mx', cx + 'px');
+      hero.style.setProperty('--my', cy + 'px');
+      raf = (Math.abs(tx - cx) > 0.5 || Math.abs(ty - cy) > 0.5) ? requestAnimationFrame(step) : null;
+    }
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      if (cx === null) { cx = r.width * 0.72; cy = r.height * 0.32; }
+      tx = e.clientX - r.left;
+      ty = e.clientY - r.top;
+      if (!raf) raf = requestAnimationFrame(step);
+    });
+  })();
+ 
+  /* ── NAV BACKGROUND ON SCROLL ── */
+  var nav = document.getElementById('nav');
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > 24); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+ 
+  /* ── CARD NUMBERING ── */
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  cards.forEach(function (c, i) {
+    c.querySelector('.card-num').textContent = 'Project ' + pad(i + 1) + ' / ' + pad(cards.length);
+    c.setAttribute('aria-label', c.querySelector('.card-title').textContent + ' — open details');
   });
-
-  /* arrows */
-  var prev = document.createElement('button');
-  prev.className = 'p-arrow prev';
-  prev.setAttribute('aria-label', 'Previous slide');
-  prev.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>';
-  prev.onclick = function() {
-    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
-    slider.scrollTo({ left: slider.offsetWidth * Math.max(0, idx - 1), behavior: 'smooth' });
-  };
-
-  var next = document.createElement('button');
-  next.className = 'p-arrow next';
-  next.setAttribute('aria-label', 'Next slide');
-  next.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>';
-  next.onclick = function() {
-    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
-    slider.scrollTo({ left: slider.offsetWidth * Math.min(slides.length - 1, idx + 1), behavior: 'smooth' });
-  };
-
-  media.appendChild(prev);
-  media.appendChild(next);
-
-  /* sync dots on scroll */
-  slider.addEventListener('scroll', function() {
-    var idx = Math.round(slider.scrollLeft / slider.offsetWidth);
-    dotsEl.querySelectorAll('.p-dot').forEach(function(d, i) {
-      d.classList.toggle('active', i === idx);
+ 
+  /* ── FILTERS ── */
+  var chips = document.querySelectorAll('.chip');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-filter');
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      cards.forEach(function (card) {
+        var show;
+        if (f === 'all') show = true;
+        else if (f === 'progress') show = card.getAttribute('data-status') === 'progress';
+        else show = card.getAttribute('data-cat').split(' ').indexOf(f) !== -1;
+        card.hidden = !show;
+      });
     });
   });
-});
+ 
+  /* ── POPUP ── */
+  var modal  = document.getElementById('modal');
+  var media  = document.getElementById('mMedia');
+  var slides = document.getElementById('mSlides');
+  var count  = document.getElementById('mCount');
+ 
+  function slideIndex() { return Math.round(slides.scrollLeft / (slides.clientWidth || 1)); }
+  function updateCount() {
+    var n = slides.children.length;
+    count.textContent = (Math.min(slideIndex(), n - 1) + 1) + ' / ' + n;
+  }
+  function go(delta) {
+    var n = slides.children.length;
+    var i = Math.max(0, Math.min(n - 1, slideIndex() + delta));
+    slides.scrollTo({ left: slides.clientWidth * i, behavior: 'smooth' });
+  }
+  slides.addEventListener('scroll', updateCount);
+  document.getElementById('mPrev').addEventListener('click', function () { go(-1); });
+  document.getElementById('mNext').addEventListener('click', function () { go(1); });
+  document.getElementById('mClose').addEventListener('click', function () { modal.close(); });
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
+  modal.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+  modal.addEventListener('close', function () {
+    html.classList.remove('modal-open');
+    slides.innerHTML = '';
+  });
+ 
+  function fill(id, source) {
+    var el = document.getElementById(id);
+    el.innerHTML = source ? source.innerHTML : '';
+  }
+ 
+  function openCard(card) {
+    var d = card.querySelector('.detail');
+    slides.innerHTML = '';
+    var found = d ? d.querySelectorAll('.slide') : [];
+    if (found.length) {
+      Array.prototype.forEach.call(found, function (s) { slides.appendChild(s.cloneNode(true)); });
+    } else {
+      var wrap = document.createElement('div');
+      wrap.className = 'slide';
+      var ph = card.querySelector('.card-media .ph');
+      if (ph) wrap.appendChild(ph.cloneNode(true));
+      slides.appendChild(wrap);
+    }
+    media.classList.toggle('single', slides.children.length < 2);
+    slides.scrollLeft = 0;
+    updateCount();
+ 
+    var meta = document.getElementById('mMeta');
+    meta.innerHTML = '';
+    meta.appendChild(card.querySelector('.card-top').cloneNode(true));
+    var yr = document.createElement('span');
+    yr.className = 'm-year';
+    yr.textContent = card.querySelector('.card-year').textContent;
+    meta.appendChild(yr);
+ 
+    document.getElementById('mTitle').textContent = card.querySelector('.card-title').textContent;
+    fill('mCopy',  d && d.querySelector('.d-copy'));
+    fill('mTags',  d && d.querySelector('.d-tags'));
+    fill('mLinks', d && d.querySelector('.d-links'));
+ 
+    html.classList.add('modal-open');
+    modal.showModal();
+ 
+    Array.prototype.forEach.call(slides.querySelectorAll('video'), function (v) {
+      v.muted = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+  }
+ 
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () { openCard(card); });
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(card); }
+    });
+  });
+})();
 </script>
 </body>
 </html>
+ 
