@@ -2,32 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sofia Lobynicheva</title>
+<meta name="description" content="Engineering student at Texas A&M. Robots, cars, electronics.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap">
 <style>
-/* ───────── TOKENS: one violet hue, dark only ───────── */
+/* ───────── TOKENS: black, white, three greys. No accent color. ───────── */
 :root {
   color-scheme: dark;
-  --bg:        #0a0910;
-  --card:      #13111a;
-  --media:     #1c1a26;
-  --line:      #252331;
-  --line-2:    #363246;
-  --hero-1:    #0d0a18;
-  --hero-2:    #17112a;
-  --hero-line: #2e2945;
-  --text:      #ebeaf0;
-  --text-2:    #b1afbc;
-  --text-3:    #807e8d;
-  --hero-text: #cac6e3;
-  --accent:    #8d85b1;
-  --nav-h:     56px;
-  --pad:       clamp(1.1rem, 4vw, 3rem);
-  --f-display: 'Michroma', 'Helvetica Neue', Arial, sans-serif;
-  --f-body:    'Space Mono', ui-monospace, Menlo, Consolas, monospace;
+  --bg:     #000000;
+  --tile:   #0b0b0b;
+  --line:   #222222;
+  --line-2: #2e2e2e;
+  --ink:    #f2f2f2;
+  --ink-2:  #a3a3a3;
+  --ink-3:  #6b6b6b;
+  --nav-h:  64px;
+  --pad:    clamp(1.25rem, 4vw, 3rem);
+  --f:      'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 
 /* ───────── RESET ───────── */
@@ -35,190 +29,217 @@
 html { scroll-behavior: smooth; background: var(--bg); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--f-body);
-  font-size: 14px;
-  line-height: 1.6;
+  background: var(--bg); color: var(--ink);
+  font: 400 14px/1.65 var(--f);
   -webkit-font-smoothing: antialiased;
 }
 html.modal-open { overflow: hidden; }
-::selection { background: var(--accent); color: var(--bg); }
+::selection { background: var(--ink); color: var(--bg); }
 a { color: inherit; text-decoration: none; }
 img, video { max-width: 100%; display: block; }
-button { font: inherit; color: inherit; cursor: pointer; }
+button { font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; background: none; border: 0; cursor: pointer; }
 section { scroll-margin-top: var(--nav-h); }
-:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
-.wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--pad); }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(var(--pad), env(safe-area-inset-left, 0px)); padding-right: max(var(--pad), env(safe-area-inset-right, 0px)); }
+.lbl { font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+
+/* outlined button, SpaceX style */
+.btn {
+  display: inline-flex; align-items: center; gap: .9rem;
+  border: 1px solid var(--ink-3); padding: .85rem 1.25rem;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
 /* ───────── NAV ───────── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  height: var(--nav-h);
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
+  padding-top: env(safe-area-inset-top, 0px);
+  background: transparent; border-bottom: 1px solid transparent;
+  transition: background-color .25s, border-color .25s;
 }
-nav .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.nav-brand { font-family: var(--f-display); font-size: 12px; letter-spacing: .02em; white-space: nowrap; }
-.nav-links { display: flex; gap: 1.6rem; list-style: none; font-size: 13px; }
-.nav-links a { color: var(--text-2); }
-.nav-links a:hover { color: var(--text); }
-@media (max-width: 560px) {
-  .nav-brand { font-size: 10px; }
-  .nav-links { gap: 1rem; font-size: 12px; }
-}
+nav.solid { background: var(--bg); border-bottom-color: var(--line); }
+nav .wrap { height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a { color: var(--ink-2); transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+@media (max-width: 560px) { .nav-links { gap: 1.1rem; } .nav-brand { letter-spacing: .08em; } }
 
-/* ───────── HERO: CAD-style viewport ───────── */
-.hero {
-  position: relative; overflow: hidden;
-  padding-top: var(--nav-h);
-  background: radial-gradient(120% 90% at 65% 45%, var(--hero-2) 0%, var(--hero-1) 70%);
-  border-bottom: 1px solid var(--hero-line);
-}
+/* ───────── HERO ───────── */
+.hero { position: relative; overflow: hidden; background: var(--bg); border-bottom: 1px solid var(--line); }
+/* MODEL SLOT: the canvas renders the hero model. Swap the placeholder gear for a .glb later. */
 .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
 .hero canvas:active { cursor: grabbing; }
 .hero .wrap {
   position: relative; pointer-events: none;
-  min-height: min(72vh, 640px);
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding-top: 4rem; padding-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  min-height: min(100svh, 900px);
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 1.25rem;
+  padding-top: calc(var(--nav-h) + 3rem); padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 .hero h1 {
-  font-family: var(--f-display); font-weight: 400;
-  font-size: clamp(1.7rem, 4vw, 3rem); line-height: 1.15; letter-spacing: .01em;
-  margin-bottom: 1rem;
+  font-weight: 500; font-size: clamp(2.4rem, 7vw, 5.25rem); line-height: 1;
+  letter-spacing: -.02em; text-transform: uppercase;
 }
-.hero p { max-width: 26rem; color: var(--hero-text); }
-.hero .hint { margin-top: .9rem; font-size: 12px; color: var(--text-3); }
-@media (max-width: 700px) { .hero .wrap { min-height: 78vh; } }
+.hero p { max-width: 40ch; color: var(--ink-2); }
+.hero .btn { align-self: flex-start; pointer-events: auto; margin-top: .5rem; }
 
 /* ───────── SECTIONS ───────── */
-.block { padding-top: clamp(3.5rem, 8vw, 5.5rem); }
-.s-title { font-family: var(--f-display); font-weight: 400; font-size: 17px; line-height: 1.3; margin-bottom: 1.5rem; }
-
-/* ───────── PROJECT GRID ───────── */
-.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-@media (max-width: 960px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-.card {
-  display: flex; flex-direction: column;
-  background: var(--card); border: 1px solid var(--line); border-radius: 3px;
-  overflow: hidden; cursor: pointer;
+.block { padding-top: clamp(4rem, 9vw, 7rem); }
+.s-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem 2rem;
+  padding-bottom: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line);
 }
-.card:hover { border-color: var(--line-2); }
-.card-media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--media); border-bottom: 1px solid var(--line); }
-.card-media img { width: 100%; height: 100%; object-fit: cover; }
-.card-body { padding: 1.1rem 1.15rem 1.3rem; }
-.card-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .45rem; }
-.card-title { font-weight: 700; font-size: 14px; line-height: 1.35; }
-.card-when { font-size: 12px; color: var(--text-3); white-space: nowrap; }
-.card-sum { font-size: 13px; color: var(--text-2); }
-.ph { width: 100%; height: 100%; display: grid; place-items: center; font-size: 12px; color: var(--text-3); }
+.s-title { font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 500; letter-spacing: .02em; text-transform: uppercase; }
+
+/* ───────── FILTERS ───────── */
+.filters { display: flex; flex-wrap: wrap; gap: .25rem 1.5rem; }
+.filters button { color: var(--ink-3); padding: .25rem 0; border-bottom: 1px solid transparent; transition: color .2s; }
+.filters button:hover { color: var(--ink-2); }
+.filters button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ───────── PROJECT GRID (Anduril-style tiles) ───────── */
+.grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: clamp(220px, 23vw, 300px); grid-auto-flow: dense; gap: .75rem;
+}
+.tile.wide { grid-column: span 2; }
+.tile.tall { grid-row: span 2; }
+.grid.filtered .tile.wide, .grid.filtered .tile.tall { grid-column: auto; grid-row: auto; }
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(200px, 36vw, 280px); } }
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+  .tile.wide { grid-column: auto; }
+  .tile.tall { grid-row: auto; }
+}
+.tile { position: relative; overflow: hidden; cursor: pointer; background: var(--tile); }
+.tile-media { position: absolute; inset: 0; }
+.tile-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.6,.2,1), opacity .3s; }
+.tile:hover .tile-media img { transform: scale(1.03); }
+.tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,0) 55%); pointer-events: none; }
+.tile-cap { position: absolute; left: 1.25rem; right: 1.25rem; bottom: 1.1rem; z-index: 1; display: grid; gap: .35rem; }
+.tile-meta { color: var(--ink-2); }
+.tile-title { font-size: clamp(16px, 1.6vw, 19px); font-weight: 500; line-height: 1.25; text-transform: uppercase; letter-spacing: .01em; }
+.tile.wip .tile-media img { opacity: .45; }
+.ph { position: absolute; inset: 1.25rem 1.25rem 5.5rem; border: 1px solid var(--line-2); display: grid; place-items: center; color: var(--ink-3); }
+@media (prefers-reduced-motion: reduce) { .tile-media img { transition: none; } .tile:hover .tile-media img { transform: none; } }
 
 /* ───────── MODAL ───────── */
 dialog {
   margin: auto;
-  width: min(1120px, calc(100vw - 2rem));
+  width: min(1180px, calc(100vw - 2rem));
   max-height: calc(100vh - 2rem); max-height: calc(100dvh - 2rem);
   padding: 0; overflow: hidden;
-  background: var(--card); color: var(--text);
-  border: 1px solid var(--line-2); border-radius: 3px;
+  background: var(--bg); color: var(--ink);
+  border: 1px solid var(--line-2);
 }
-dialog::backdrop { background: rgba(6, 5, 10, .82); }
-dialog[open] { animation: pop .2s ease; }
-@keyframes pop { from { opacity: 0; transform: translateY(10px); } }
+dialog::backdrop { background: rgba(0, 0, 0, .86); }
+dialog[open] { animation: fade .2s ease; }
+@keyframes fade { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { dialog[open] { animation: none; } }
 .m-close {
   position: absolute; top: .75rem; right: .75rem; z-index: 6;
-  width: 34px; height: 34px; display: grid; place-items: center;
-  background: var(--card); border: 1px solid var(--line-2); border-radius: 3px;
+  width: 36px; height: 36px; display: grid; place-items: center;
+  background: var(--bg); border: 1px solid var(--line-2);
 }
-.m-close:hover { border-color: var(--accent); }
+.m-close:hover { border-color: var(--ink); }
 .m-grid {
-  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  height: min(720px, calc(100vh - 2rem)); height: min(720px, calc(100dvh - 2rem));
+  display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  height: min(740px, calc(100vh - 2rem)); height: min(740px, calc(100dvh - 2rem));
 }
-.m-media { position: relative; background: #06050a; min-height: 0; }
+.m-media { position: relative; background: #050505; min-height: 0; border-right: 1px solid var(--line); }
 .m-slides {
   position: absolute; inset: 0;
   display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
 }
 .m-slides::-webkit-scrollbar { display: none; }
-.m-slides .slide { flex: 0 0 100%; height: 100%; scroll-snap-align: start; display: grid; place-items: center; }
+.m-slides .slide { position: relative; flex: 0 0 100%; height: 100%; scroll-snap-align: start; display: grid; place-items: center; }
 .m-slides img, .m-slides video { width: 100%; height: 100%; object-fit: contain; }
+.m-slides .slide[data-cap]::after {
+  content: attr(data-cap); position: absolute; top: .9rem; left: .9rem;
+  font-size: 11px; font-weight: 500; letter-spacing: .14em; color: var(--ink-2);
+  background: rgba(0,0,0,.7); padding: .2rem .5rem;
+}
+.m-slides .ph { position: static; width: 100%; height: 100%; border: 0; }
 .m-arrow {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
-  width: 36px; height: 36px; display: grid; place-items: center;
-  background: rgba(10, 9, 16, .7); border: 1px solid var(--line-2); border-radius: 3px; color: var(--text);
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: rgba(0, 0, 0, .7); border: 1px solid var(--line-2);
 }
-.m-arrow:hover { border-color: var(--accent); }
+.m-arrow:hover { border-color: var(--ink); }
 .m-arrow.prev { left: .75rem; }
 .m-arrow.next { right: .75rem; }
 .m-count {
-  position: absolute; left: .75rem; bottom: .75rem; z-index: 3;
-  font-size: 12px; background: rgba(10, 9, 16, .7); color: var(--text-2); padding: .2rem .5rem; border-radius: 3px;
+  position: absolute; left: .9rem; bottom: .9rem; z-index: 3;
+  color: var(--ink-2); background: rgba(0,0,0,.7); padding: .2rem .5rem;
+  font-variant-numeric: tabular-nums;
 }
 .m-media.single .m-arrow, .m-media.single .m-count { display: none; }
-.m-info { overflow-y: auto; padding: 2rem 1.75rem; }
-.m-when { font-size: 12px; color: var(--text-3); margin-bottom: .6rem; padding-right: 2.5rem; }
-.m-title { font-family: var(--f-display); font-weight: 400; font-size: 18px; line-height: 1.35; margin-bottom: 1.25rem; padding-right: 2.5rem; }
-.m-copy p { color: var(--text-2); font-size: 13px; line-height: 1.75; }
+.m-info { overflow-y: auto; padding: 2.25rem 2rem 2rem; display: flex; flex-direction: column; }
+.m-meta { color: var(--ink-3); margin-bottom: .9rem; padding-right: 2.75rem; }
+.m-title { font-size: 20px; font-weight: 500; line-height: 1.3; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 1.5rem; padding-right: 2.75rem; text-wrap: balance; }
+.m-copy p { color: var(--ink-2); font-size: 13px; line-height: 1.8; max-width: 62ch; }
 .m-copy p + p { margin-top: 1rem; }
-.m-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.5rem; }
+.m-tags { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--ink-3); line-height: 2; }
 .m-tags:empty { display: none; }
-.tag { font-size: 11px; color: var(--text-2); border: 1px solid var(--line-2); border-radius: 3px; padding: .15rem .5rem; }
-.m-links { display: flex; gap: 1.25rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: 13px; }
+.m-tags .tag + .tag::before { content: "·"; margin: 0 .6rem; color: var(--line-2); }
+.m-links { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.75rem; }
 .m-links:empty { display: none; }
-.m-links a { color: var(--accent); text-decoration: underline; text-underline-offset: .2em; }
-.m-links a:hover { color: var(--text); }
 @media (max-width: 860px) {
   dialog { overflow-y: auto; }
   .m-grid { grid-template-columns: 1fr; height: auto; }
-  .m-media { aspect-ratio: 4 / 3; }
-  .m-info { overflow: visible; padding: 1.5rem 1.25rem 1.75rem; }
+  .m-media { aspect-ratio: 4 / 3; border-right: 0; border-bottom: 1px solid var(--line); }
+  .m-info { overflow: visible; padding: 1.5rem 1.25rem 2rem; }
 }
 
 /* ───────── ABOUT ───────── */
-.about { display: grid; grid-template-columns: 1.6fr 1fr; gap: 1rem; }
-.about > div { background: var(--card); border: 1px solid var(--line); border-radius: 3px; padding: 1.5rem 1.5rem 1.6rem; }
-.about-bio { max-width: 38rem; color: var(--text); }
-.edu h3 { font-weight: 700; font-size: 14px; margin-bottom: .2rem; }
-.edu p { font-size: 13px; color: var(--text-2); }
-@media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+.about { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.about-bio { padding-right: clamp(1.5rem, 4vw, 3.5rem); border-right: 1px solid var(--line); }
+.about-bio p { max-width: 58ch; color: var(--ink-2); line-height: 1.8; }
+.about-bio p + p { margin-top: 1rem; }
+.specs { padding-left: clamp(1.5rem, 4vw, 3.5rem); }
+.specs div { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; padding: .7rem 0; border-bottom: 1px solid var(--line); }
+.specs div:first-child { padding-top: 0; }
+.specs dt { color: var(--ink-3); padding-top: .2em; }
+@media (max-width: 760px) {
+  .about { grid-template-columns: 1fr; gap: 2rem; }
+  .about-bio { padding-right: 0; border-right: 0; }
+  .specs { padding-left: 0; }
+  .specs div { grid-template-columns: 7.5rem 1fr; }
+}
 
 /* ───────── FOOTER ───────── */
-footer { margin-top: clamp(3.5rem, 8vw, 5.5rem); border-top: 1px solid var(--line); }
-footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 13px; color: var(--text-3); }
-.f-links { display: flex; gap: 1.5rem; }
-.f-links a { color: var(--text-2); }
-.f-links a:hover { color: var(--text); }
+footer { margin-top: clamp(4rem, 9vw, 7rem); border-top: 1px solid var(--line); }
+footer .wrap { padding-top: 1.5rem; padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; color: var(--ink-3); }
+.f-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.f-links a { color: var(--ink-2); transition: color .2s; }
+.f-links a:hover { color: var(--ink); }
 
-/* no selection highlight while clicking through cards and photos */
-.card, .m-media, .m-arrow { -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
-.card-media img, .m-slides img, .m-slides video { -webkit-user-drag: none; }
+/* no selection highlight while clicking through tiles and photos */
+.tile, .m-media, .m-arrow { -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.tile img, .m-slides img, .m-slides video { -webkit-user-drag: none; }
 </style>
 </head>
 <body>
 
 <!-- ───────── NAV ───────── -->
-<nav>
+<nav id="nav">
   <div class="wrap">
-    <a class="nav-brand" href="#top">Sofia Lobynicheva</a>
-    <ul class="nav-links">
+    <a class="nav-brand lbl" href="#top">Sofia Lobynicheva</a>
+    <ul class="nav-links lbl">
       <li><a href="#projects">Projects</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
 <!-- ───────── HERO ───────── -->
 <header class="hero" id="top">
-  <canvas id="viewport" role="img" aria-label="Rotating wireframe of a spur gear. Drag to rotate."></canvas>
+  <canvas id="viewport" role="img" aria-label="3D model, drag to rotate"></canvas>
   <div class="wrap">
     <h1>Sofia<br>Lobynicheva</h1>
-    <p>Engineering student. I design, print, and program robots, and I'm currently building a thrust vector controlled rocket.</p>
-    <p class="hint">Drag to rotate</p>
+    <p>General Engineering at Texas A&amp;M. I build robots, work on cars, and print most of the parts.</p>
+    <a class="btn lbl" href="#projects">Projects <span aria-hidden="true">↓</span></a>
   </div>
 </header>
 
@@ -226,143 +247,158 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
 <!-- ───────── PROJECTS ───────── -->
 <section class="block" id="projects">
-  <h2 class="s-title">Projects</h2>
+  <div class="s-head">
+    <h2 class="s-title">Projects</h2>
+    <div class="filters lbl" role="group" aria-label="Filter projects">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="robotics" aria-pressed="false">Robotics</button>
+      <button type="button" data-filter="electrical" aria-pressed="false">Electrical</button>
+      <button type="button" data-filter="automotive" aria-pressed="false">Automotive</button>
+      <button type="button" data-filter="product" aria-pressed="false">Product</button>
+    </div>
+  </div>
 
   <!--
-    HOW TO ADD A PROJECT: copy any <article class="card"> below and edit it.
-      .card-when   : the year, or "In progress"
-      card photo   : the <img> inside .card-media  (no photo yet? use <div class="ph">No photos yet</div>)
-      popup        : everything inside <div class="detail" hidden>: one .slide per photo/video,
-                     .d-copy for text, .d-tags for tags, .d-links for links
+    HOW TO ADD A PROJECT: copy any <article class="tile"> below and edit it.
+      data-cat     : one or more of robotics / electrical / automotive / product (space-separated)
+      class        : add "wide" (2 columns), "tall" (2 rows) or "wip" (in progress, dims the photo)
+      .tile-meta   : categories and year, or "In progress"
+      cover photo  : the <img> inside .tile-media  (no photo yet? use <div class="ph lbl">No photos yet</div>)
+      popup        : everything inside <div class="detail" hidden>
+                       one .slide per photo/video (add data-cap="CAD" on CAD renders)
+                       .d-copy for text, .d-tags for <span class="tag">s, .d-links for buttons
   -->
-  <div class="grid">
+  <div class="grid" id="grid">
 
     <!-- Motion Tracking Spotlight -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="img/spotlight/assembly-cad.jpg" alt="Motion tracking spotlight full assembly" loading="lazy"></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">Motion Tracking Spotlight</h3><span class="card-when">In progress</span></div>
-        <p class="card-sum">A ring of PIR sensors picks up motion and a Raspberry Pi points a servo gimbal spotlight at it. The enclosure, sensor mounts, and gimbal brackets are all custom and printed.</p>
-      </div>
+    <article class="tile wide" data-cat="robotics electrical" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/spotlight/assembly-cad.jpg" alt="Motion tracking spotlight assembly" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Robotics · Electrical · 2025</span><h3 class="tile-title">Motion Tracking Spotlight</h3></div>
       <div class="detail" hidden>
-        <div class="slide"><img src="img/spotlight/assembly-cad.jpg" alt="Motion tracking spotlight full assembly"></div>
-        <div class="slide"><img src="img/spotlight/housing.jpeg" alt="Spotlight housing alternate angle" loading="lazy"></div>
-        <div class="slide"><img src="img/spotlight/overview.jpeg" alt="System mounted overview" loading="lazy"></div>
-        <div class="slide"><img src="img/spotlight/top.jpg" alt="Spotlight top view showing gimbal" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/spotlight/assembly-cad.jpg" alt="Motion tracking spotlight assembly"></div>
+        <div class="slide"><img src="img/spotlight/housing.jpeg" alt="Spotlight housing from another angle" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/overview.jpeg" alt="Spotlight mounted" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/top.jpg" alt="Top view showing the gimbal" loading="lazy"></div>
         <div class="slide"><video src="img/spotlight/demo.mp4" autoplay muted loop playsinline></video></div>
-        <div class="slide"><img src="img/spotlight/electronics.jpeg" alt="Interior electronics and wiring" loading="lazy"></div>
-        <div class="slide"><img src="img/spotlight/pir-bracket-cad.png" alt="PIR sensor attachment bracket CAD model" loading="lazy"></div>
-        <div class="slide"><img src="img/spotlight/pir-enclosure-cad.png" alt="PIR sensor enclosure with threaded dome cap CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/electronics.jpeg" alt="Electronics and wiring inside the enclosure" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/spotlight/pir-bracket-cad.png" alt="PIR sensor bracket model" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/spotlight/pir-enclosure-cad.png" alt="PIR sensor enclosure with threaded dome cap" loading="lazy"></div>
         <div class="d-copy">
-          <p>A ring of HC-SR501 PIR sensors covers almost every direction. When one trips, a Raspberry Pi Zero 2 WH works out which way it faced and sends I2C commands to a 16-channel PWM driver, which moves a 2-axis servo gimbal to point the spotlight at it.</p>
-          <p>The PWM driver handles the servo timing so the Pi doesn't have to. That keeps the Pi's GPIO free and avoids jitter from the OS scheduler. The lamp switches through an optocoupler-isolated relay so inductive kickback from the lamp circuit can't reach the Pi. A 12V supply runs through an XL4015 buck converter to give the Pi and servos a 5V rail.</p>
-          <p>The enclosure, sensor mounts, and gimbal brackets are modeled in Fusion 360 and 3D printed. It's built as a ceiling mount, but it was originally meant to go on a tree to cover an outdoor perimeter.</p>
-          <p>Two problems are still open. The PIR sensors drift with outdoor temperature swings and give false triggers, and there's no weatherproof way yet to power it without a wired connection.</p>
+          <p>A ring of HC-SR501 PIR sensors covers nearly every direction. When one trips, a Raspberry Pi Zero 2 WH works out which way it faces and sends I2C commands to a 16-channel PWM driver, which swings a 2-axis servo gimbal toward it.</p>
+          <p>The PWM driver handles servo timing, so the Pi's GPIO stays free and the OS scheduler doesn't add jitter. The lamp switches through an optocoupler-isolated relay to keep inductive kickback away from the Pi. 12V in, stepped down to 5V by an XL4015 buck converter for the Pi and servos.</p>
+          <p>Enclosure, sensor mounts and gimbal brackets are modeled in Fusion 360 and printed. It's a ceiling mount for now. The original plan was a tree, covering an outdoor perimeter.</p>
+          <p>Still open: the PIRs drift with outdoor temperature swings and false-trigger, and there's no weatherproof way to power it without running a wire.</p>
         </div>
-        <div class="d-tags"><span class="tag">Raspberry Pi</span><span class="tag">Python</span><span class="tag">Servo Control</span><span class="tag">Embedded Systems</span><span class="tag">Fusion 360</span><span class="tag">Enclosure Design</span></div>
-        <div class="d-links"><a href="https://github.com/sofialobynicheva/motion-tracking-sentry" target="_blank" rel="noopener">GitHub repo</a></div>
-      </div>
-    </article>
-
-    <!-- Solar Sentry -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="img/solar/battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" style="object-position: center 70%;" loading="lazy"></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">Solar Sentry Light</h3><span class="card-when">2025</span></div>
-        <p class="card-sum">Off-grid 12V solar lighting for the street.</p>
-      </div>
-      <div class="detail" hidden>
-        <div class="slide"><img src="img/solar/battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/enclosure.jpg" alt="Weatherproof solar enclosure" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/controller.jpg" alt="PWM/MPPT solar charge controller" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/panels.jpg" alt="Three 100W solar panels mounted" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/controller-base-cad.png" alt="Elevated controller base CAD model" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/fan-bracket-cad.png" alt="Angled fan bracket CAD model" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/vent-housing-cad.png" alt="Dual fan vent housing CAD model" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/vent-pipe-cad.png" alt="45-degree vent pipe CAD model" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/enclosure-assembly-cad.png" alt="Solar enclosure full assembly CAD" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/lights.jpg" alt="LED security lights installed" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/street-before.jpg" alt="Street before lighting installation" loading="lazy"></div>
-        <div class="slide"><img src="img/solar/street-after.jpg" alt="Street illuminated after installation" loading="lazy"></div>
-        <div class="d-copy">
-          <p>Fully 12V DC and off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a charge controller. A 10AWG feeder runs from the backyard to keep voltage drop down over the long distance. From there, 14AWG landscape wire and Wago 221 connectors split power out to the lights, so any section can be isolated if something fails.</p>
-          <p>It has two modes. Two 18W lights and one 36W light run from dusk to dawn (72W total). A separate 36W flood bar stays off until it detects motion, then runs for about 30 seconds. In Texas sun the battery is full by 2 PM, and it holds about 2.5 nights of reserve when it's overcast.</p>
-          <p>The whole build cost about $620. Trenching 120V AC to the street would have been $2,000 or more.</p>
-          <p>The enclosure sits in direct Texas sun, so it has its own cooling: a dual fan vent housing, a 45° vent pipe with ring gaskets, an angled fan bracket, and a raised controller base so air can move underneath. Everything is printed in PETG because it holds up better in heat. The fans only run above 90°F so they don't drain the battery they're cooling.</p>
-        </div>
-        <div class="d-tags"><span class="tag">DC Power Systems</span><span class="tag">Solar / LiFePO4</span><span class="tag">Off-Grid Design</span><span class="tag">Fusion 360</span><span class="tag">Thermal Design</span><span class="tag">PETG Printing</span></div>
-        <div class="d-links"><a href="https://docs.google.com/document/d/e/2PACX-1vSfy5GZDMHXy5edRup2MUSpb0m64ijIj2VoTAkH6L70IK3DSi_-fCkKyAo12rXHs16S7A8Qk8e4jiSx/pub" target="_blank" rel="noopener">Bill of materials</a></div>
+        <div class="d-tags"><span class="tag">Raspberry Pi</span><span class="tag">Python</span><span class="tag">Servo control</span><span class="tag">Fusion 360</span><span class="tag">Enclosure design</span></div>
+        <div class="d-links"><a class="btn lbl" href="https://github.com/sofialobynicheva/motion-tracking-sentry" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></div>
       </div>
     </article>
 
     <!-- Duramax Fuel Leak Diverter -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="img/fuel-diverter/installed.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">Duramax Fuel Leak Diverter</h3><span class="card-when">2025</span></div>
-        <p class="card-sum">The 3.0L Duramax fill hose leaks fuel onto the suspension, and GM never released a fix. This diverter sends the drip to the ground instead.</p>
-      </div>
+    <article class="tile" data-cat="automotive" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/fuel-diverter/installed.jpeg" alt="Diverter installed on the truck" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Automotive · 2025</span><h3 class="tile-title">Duramax Fuel Leak Diverter</h3></div>
       <div class="detail" hidden>
-        <div class="slide"><img src="img/fuel-diverter/installed.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
-        <div class="slide"><img src="img/fuel-diverter/leak.jpeg" alt="Fuel hose leak location before fix" loading="lazy"></div>
-        <div class="slide"><img src="img/fuel-diverter/diverter-cad.png" alt="Fuel diverter Fusion 360 model" loading="lazy"></div>
+        <div class="slide"><img src="img/fuel-diverter/installed.jpeg" alt="Diverter installed on the truck" loading="lazy"></div>
+        <div class="slide"><img src="img/fuel-diverter/leak.jpeg" alt="Fill hose leak before the fix" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/fuel-diverter/render-cad.jpg" alt="Diverter render" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/fuel-diverter/diverter-cad.png" alt="Diverter Fusion 360 model" loading="lazy"></div>
         <div class="d-copy">
-          <p>The 3.0L Duramax has a known fill hose leak that drips fuel onto the suspension and wears it out faster. GM acknowledged it in a technical service bulletin but never released a fix. The fix here is a custom diverter that sends the drip past the suspension and onto the ground.</p>
+          <p>The 3.0L Duramax has a known fill hose leak that drips fuel onto the suspension and wears it out early. GM covered it in a technical service bulletin but never released a part.</p>
+          <p>This diverter catches the drip and routes it past the suspension to the ground.</p>
         </div>
-        <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Parametric Modeling</span><span class="tag">Reverse Engineering</span></div>
+        <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Parametric modeling</span><span class="tag">Reverse engineering</span></div>
         <div class="d-links"></div>
       </div>
     </article>
 
-    <!-- S650 Front End Repair -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="img/mustang-front/wheel.jpg" alt="Reinstalling wheel" loading="lazy"></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">S650 Mustang Front End Repair</h3><span class="card-when">2026</span></div>
-        <p class="card-sum">Took the front end apart after a parking lot accident.</p>
-      </div>
+    <!-- Solar Sentry -->
+    <article class="tile tall" data-cat="electrical" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/solar/battery.jpg" alt="100Ah LiFePO4 battery with wiring" style="object-position: center 70%;" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Electrical · 2025</span><h3 class="tile-title">Solar Sentry</h3></div>
       <div class="detail" hidden>
-        <div class="slide"><img src="img/mustang-front/wheel.jpg" alt="Reinstalling wheel" loading="lazy"></div>
-        <div class="slide"><img src="img/mustang-front/lug-nuts.jpg" alt="Torquing lug nuts to spec" loading="lazy"></div>
-        <div class="slide"><img src="img/mustang-front/car.jpg" alt="S650 Mustang" loading="lazy"></div>
-        <div class="slide"><img src="img/mustang-front/bumper.jpeg" alt="Bumper detail" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/street-after.jpg" alt="The street lit at night" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/street-before.jpg" alt="The street before the lights" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/battery.jpg" alt="100Ah LiFePO4 battery with wiring" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/enclosure.jpg" alt="Weatherproof enclosure" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/controller.jpg" alt="Charge controller" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/panels.jpg" alt="Three 100W panels" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/lights.jpg" alt="LED lights installed" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/solar/enclosure-assembly-cad.png" alt="Enclosure cooling assembly" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/solar/vent-housing-cad.png" alt="Dual-fan vent housing" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/solar/vent-pipe-cad.png" alt="45 degree vent pipe" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/solar/fan-bracket-cad.png" alt="Angled fan bracket" loading="lazy"></div>
+        <div class="slide" data-cap="CAD"><img src="img/solar/controller-base-cad.png" alt="Raised controller base" loading="lazy"></div>
         <div class="d-copy">
-          <p>After a parking lot accident on my 2025 S650 EcoBoost Mustang, I got shop quotes around $2,200 and decided to take the front end apart myself instead. That meant the bumper cover and all the trim, both side markers, the left headlight, both front wheel well covers, the inner fender lining, and the rocker panel. There were no tutorials for removing the rocker panel on the S650, so I worked it out on the car. A shop did the paint correction and clear coat respray, and I put everything back together afterward.</p>
+          <p>Off-grid 12V lighting for the street. Three 100W panels charge a 100Ah LiFePO4 battery through a charge controller. A 10AWG feeder covers the long run from the backyard to keep voltage drop down, then 14AWG landscape wire and Wago 221 connectors split it out to the lights, so any section can be isolated.</p>
+          <p>Two modes. Two 18W lights and one 36W light run dusk to dawn, 72W total. A separate 36W flood bar stays off until it sees motion, then runs for about 30 seconds. The battery is full by 2 PM in Texas sun and holds about 2.5 nights when it's overcast.</p>
+          <p>About $620 all in. Trenching 120V AC out to the street would have been $2,000 or more.</p>
+          <p>The enclosure sits in direct sun, so it has its own cooling: a dual-fan vent housing, a 45° vent pipe with ring gaskets, an angled fan bracket and a raised controller base for airflow underneath. All printed in PETG for heat. The fans only run above 90°F so they don't drain the battery they're cooling.</p>
         </div>
-        <div class="d-tags"><span class="tag">Panel Removal</span><span class="tag">Mechanical Assembly</span></div>
+        <div class="d-tags"><span class="tag">12V DC</span><span class="tag">LiFePO4</span><span class="tag">Off-grid</span><span class="tag">Fusion 360</span><span class="tag">Thermal design</span><span class="tag">PETG</span></div>
+        <div class="d-links"><a class="btn lbl" href="https://docs.google.com/document/d/e/2PACX-1vSfy5GZDMHXy5edRup2MUSpb0m64ijIj2VoTAkH6L70IK3DSi_-fCkKyAo12rXHs16S7A8Qk8e4jiSx/pub" target="_blank" rel="noopener">Bill of materials <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </article>
+
+    <!-- Smoke Bubble Wand (STEP file to come) -->
+    <article class="tile" data-cat="product" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/smoke-wand/parts-cad.png" alt="Smoke bubble wand parts laid out" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Product · 2026</span><h3 class="tile-title">Smoke Bubble Wand</h3></div>
+      <div class="detail" hidden>
+        <div class="slide" data-cap="CAD"><img src="img/smoke-wand/parts-cad.png" alt="Smoke bubble wand parts laid out" loading="lazy"></div>
+        <div class="d-copy">
+          <p>Handheld wand that makes smoke-filled bubbles, built for a small bubble business.</p>
+          <p>Threaded, multi-part assembly: two barrel sections that screw together, a sleeve with a threaded side port, a vented nozzle and a threaded plug. Comes apart for cleaning and refilling.</p>
+        </div>
+        <div class="d-tags"><span class="tag">Fusion 360</span><span class="tag">Threaded assembly</span><span class="tag">Product design</span></div>
         <div class="d-links"></div>
       </div>
     </article>
 
     <!-- MBRP Catback Exhaust -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="img/exhaust/tip.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">MBRP Catback Exhaust</h3><span class="card-when">2026</span></div>
-        <p class="card-sum">MBRP Race Series catback on my 2025 S650 EcoBoost.</p>
-      </div>
+    <article class="tile" data-cat="automotive" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/exhaust/tip.jpg" alt="Exhaust tip at the bumper cutout" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Automotive · 2026</span><h3 class="tile-title">MBRP Catback Exhaust</h3></div>
       <div class="detail" hidden>
-        <div class="slide"><img src="img/exhaust/tip.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
-        <div class="slide"><img src="img/exhaust/side.jpg" alt="Exhaust system right side view" loading="lazy"></div>
-        <div class="slide"><img src="img/exhaust/underside.jpg" alt="Exhaust hangers and undercarriage routing" loading="lazy"></div>
+        <div class="slide"><img src="img/exhaust/tip.jpg" alt="Exhaust tip at the bumper cutout" loading="lazy"></div>
+        <div class="slide"><img src="img/exhaust/side.jpg" alt="Exhaust from the right side" loading="lazy"></div>
+        <div class="slide"><img src="img/exhaust/underside.jpg" alt="Hangers and routing underneath" loading="lazy"></div>
         <div class="d-copy">
-          <p>I put an MBRP Race Series catback exhaust on my 2025 S650 EcoBoost Mustang. Most of the work was getting the car up safely: finding the right jacking points on the S650 so I didn't damage the floor pans, and supporting it well enough to work underneath. Then I unbolted the stock exhaust from the catalytic converter back and fit the new one. It took some adjusting before the hangers seated properly. It sounds a lot different from stock and needed no tuning.</p>
+          <p>MBRP Race Series catback on my 2025 S650 EcoBoost Mustang. Most of the work was getting the car up safely: finding the right S650 jacking points so the floor pans don't get damaged, and supporting it well enough to work underneath.</p>
+          <p>Unbolted the stock system from the cat back, fit the new one, and adjusted it until the hangers seated. Sounds a lot different from stock. No tune needed.</p>
         </div>
-        <div class="d-tags"><span class="tag">Exhaust Systems</span><span class="tag">Jacking &amp; Support</span><span class="tag">Mechanical Assembly</span></div>
+        <div class="d-tags"><span class="tag">Exhaust</span><span class="tag">Jacking &amp; support</span><span class="tag">Mechanical assembly</span></div>
         <div class="d-links"></div>
       </div>
     </article>
 
-    <!-- TVC Rocket (swap the .ph div for an <img> and add .slide entries when you have photos) -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><div class="ph">No photos yet</div></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">TVC Rocket</h3><span class="card-when">In progress</span></div>
-        <p class="card-sum">Thrust vector controlled model rocket.</p>
+    <!-- S650 Front End Repair -->
+    <article class="tile wide" data-cat="automotive" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/mustang-front/wheel.jpg" alt="Reinstalling the front wheel" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Automotive · 2026</span><h3 class="tile-title">S650 Front End Repair</h3></div>
+      <div class="detail" hidden>
+        <div class="slide"><img src="img/mustang-front/wheel.jpg" alt="Reinstalling the front wheel" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/teardown.jpeg" alt="Front end teardown in progress" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/teardown-subframe.jpg" alt="Bumper off, subframe exposed" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/lug-nuts.jpg" alt="Torquing lug nuts" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/bumper.jpeg" alt="Bumper detail" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/car.jpg" alt="The Mustang" loading="lazy"></div>
+        <div class="d-copy">
+          <p>After a parking lot accident on my 2025 S650 EcoBoost, shops quoted around $2,200. I took the front end apart myself instead: bumper cover and trim, both side markers, the left headlight, both front wheel well covers, the inner fender lining and the rocker panel.</p>
+          <p>There were no removal guides for the S650 rocker panel, so that part got figured out on the car. A shop did the paint correction and clear coat. I put it all back together.</p>
+        </div>
+        <div class="d-tags"><span class="tag">Panel removal</span><span class="tag">Mechanical assembly</span></div>
+        <div class="d-links"></div>
       </div>
+    </article>
+
+    <!-- TVC Rocket: swap the .ph for an <img>, add .slide entries, and drop "wip" when it's done -->
+    <article class="tile wip" data-cat="robotics" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><div class="ph lbl">No photos yet</div></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Robotics · In progress</span><h3 class="tile-title">TVC Rocket</h3></div>
       <div class="detail" hidden>
         <div class="d-copy">
-          <p>Thrust vector controlled model rocket. Write-up coming as the build progresses.</p>
+          <p>Thrust vector controlled model rocket. Notes coming as it gets built.</p>
         </div>
         <div class="d-tags"></div>
         <div class="d-links"></div>
@@ -370,19 +406,16 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
     </article>
 
     <!-- Hexapod -->
-    <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="img/hexapod/hex-1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
-      <div class="card-body">
-        <div class="card-top"><h3 class="card-title">Hexapod</h3><span class="card-when">In progress</span></div>
-        <p class="card-sum">Six-legged walking robot.</p>
-      </div>
+    <article class="tile wide wip" data-cat="robotics" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="tile-media"><img src="img/hexapod/hex-1.jpeg" alt="Hexapod build" loading="lazy"></div>
+      <div class="tile-cap"><span class="tile-meta lbl">Robotics · In progress</span><h3 class="tile-title">Hexapod</h3></div>
       <div class="detail" hidden>
-        <div class="slide"><img src="img/hexapod/hex-1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
-        <div class="slide"><img src="img/hexapod/hex-2.jpeg" alt="Hexapod build photo 2" loading="lazy"></div>
-        <div class="slide"><img src="img/hexapod/hex-3.jpeg" alt="Hexapod build photo 3" loading="lazy"></div>
-        <div class="slide"><img src="img/hexapod/hex-4.jpeg" alt="Hexapod build photo 4" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-1.jpeg" alt="Hexapod build, photo 1" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-2.jpeg" alt="Hexapod build, photo 2" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-3.jpeg" alt="Hexapod build, photo 3" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-4.jpeg" alt="Hexapod build, photo 4" loading="lazy"></div>
         <div class="d-copy">
-          <p>Six-legged walking robot. Write-up coming as the build progresses.</p>
+          <p>Six-legged walking robot. Notes coming as it gets built.</p>
         </div>
         <div class="d-tags"></div>
         <div class="d-links"></div>
@@ -394,16 +427,20 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
 <!-- ───────── ABOUT ───────── -->
 <section class="block" id="about">
-  <h2 class="s-title">About</h2>
+  <div class="s-head"><h2 class="s-title">About</h2></div>
   <div class="about">
-    <div>
-      <p class="about-bio">General Engineering at Texas A&amp;M. I like cars, robotics, and electronics. I did FTC and VEX robotics in school, and I've volunteered teaching kids Russian, math, and computer science online. Outside of engineering I ski and do aquascaping. I like building things. Native speaker of Russian and English.</p>
+    <div class="about-bio">
+      <p>General Engineering at Texas A&amp;M. Mostly cars, robots and electronics. Did FTC and VEX robotics in school, and taught kids Russian, math and computer science online as a volunteer.</p>
+      <p>Outside of engineering: skiing and aquascaping.</p>
     </div>
-    <div class="edu">
-      <h3>Texas A&amp;M University</h3>
-      <p>General Engineering, Class of 2030</p>
-      <p>College Station, TX</p>
-    </div>
+    <dl class="specs">
+      <div><dt class="lbl">School</dt><dd>Texas A&amp;M University</dd></div>
+      <div><dt class="lbl">Major</dt><dd>General Engineering</dd></div>
+      <div><dt class="lbl">Class</dt><dd>2030</dd></div>
+      <div><dt class="lbl">Based</dt><dd>College Station, TX</dd></div>
+      <div><dt class="lbl">Tools</dt><dd>Fusion 360, Python, Raspberry Pi</dd></div>
+      <div><dt class="lbl">Languages</dt><dd>English, Russian (native)</dd></div>
+    </dl>
   </div>
 </section>
 
@@ -411,11 +448,12 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
 <!-- ───────── FOOTER ───────── -->
 <footer id="contact">
-  <div class="wrap">
+  <div class="wrap lbl">
     <span>© 2026 Sofia Lobynicheva</span>
     <span class="f-links">
       <a href="mailto:sofialobynicheva@gmail.com">Email</a>
       <a href="https://linkedin.com/in/sofialobynicheva" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/sofialobynicheva" target="_blank" rel="noopener">GitHub</a>
     </span>
   </div>
 </footer>
@@ -423,47 +461,73 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 <!-- ───────── PROJECT POPUP ───────── -->
 <dialog id="modal" aria-labelledby="mTitle">
   <button class="m-close" id="mClose" aria-label="Close">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <div class="m-grid">
     <div class="m-media" id="mMedia">
       <div class="m-slides" id="mSlides"></div>
       <button class="m-arrow prev" id="mPrev" aria-label="Previous photo">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
       <button class="m-arrow next" id="mNext" aria-label="Next photo">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
-      <div class="m-count" id="mCount"></div>
+      <div class="m-count lbl" id="mCount"></div>
     </div>
     <div class="m-info">
-      <p class="m-when" id="mWhen"></p>
+      <p class="m-meta lbl" id="mMeta"></p>
       <h3 class="m-title" id="mTitle"></h3>
       <div class="m-copy" id="mCopy"></div>
-      <div class="m-tags" id="mTags"></div>
+      <div class="m-tags lbl" id="mTags"></div>
       <div class="m-links" id="mLinks"></div>
     </div>
   </div>
 </dialog>
 
 <script>
+/* ── NAV: solid once you scroll past the top ── */
+(function () {
+  var nav = document.getElementById('nav');
+  function onScroll() { nav.classList.toggle('solid', window.scrollY > 8); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* ── FILTERS ── */
+(function () {
+  var grid = document.getElementById('grid');
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
+  var tiles = Array.prototype.slice.call(grid.querySelectorAll('.tile'));
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-filter');
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      tiles.forEach(function (t) {
+        t.hidden = f !== 'all' && t.getAttribute('data-cat').split(' ').indexOf(f) === -1;
+      });
+      grid.classList.toggle('filtered', f !== 'all');
+    });
+  });
+})();
+
 /* ── PROJECT POPUP ── */
 (function () {
   var html   = document.documentElement;
-  var cards  = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var tiles  = Array.prototype.slice.call(document.querySelectorAll('.tile'));
   var modal  = document.getElementById('modal');
   var media  = document.getElementById('mMedia');
   var slides = document.getElementById('mSlides');
   var count  = document.getElementById('mCount');
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
 
-  cards.forEach(function (c) {
-    c.setAttribute('aria-label', c.querySelector('.card-title').textContent + ', open details');
+  tiles.forEach(function (t) {
+    t.setAttribute('aria-label', t.querySelector('.tile-title').textContent + ', open details');
   });
 
   function slideIndex() { return Math.round(slides.scrollLeft / (slides.clientWidth || 1)); }
   function updateCount() {
     var n = slides.children.length;
-    count.textContent = (Math.min(slideIndex(), n - 1) + 1) + ' / ' + n;
+    count.textContent = pad(Math.min(slideIndex(), n - 1) + 1) + ' / ' + pad(n);
   }
   function go(delta) {
     var n = slides.children.length;
@@ -488,8 +552,8 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
     document.getElementById(id).innerHTML = source ? source.innerHTML : '';
   }
 
-  function openCard(card) {
-    var d = card.querySelector('.detail');
+  function openTile(tile) {
+    var d = tile.querySelector('.detail');
     slides.innerHTML = '';
     var found = d ? d.querySelectorAll('.slide') : [];
     if (found.length) {
@@ -497,7 +561,7 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
     } else {
       var wrap = document.createElement('div');
       wrap.className = 'slide';
-      var ph = card.querySelector('.card-media .ph');
+      var ph = tile.querySelector('.tile-media .ph');
       if (ph) wrap.appendChild(ph.cloneNode(true));
       slides.appendChild(wrap);
     }
@@ -505,8 +569,8 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
     slides.scrollLeft = 0;
     updateCount();
 
-    document.getElementById('mWhen').textContent  = card.querySelector('.card-when').textContent;
-    document.getElementById('mTitle').textContent = card.querySelector('.card-title').textContent;
+    document.getElementById('mMeta').textContent  = tile.querySelector('.tile-meta').textContent;
+    document.getElementById('mTitle').textContent = tile.querySelector('.tile-title').textContent;
     fill('mCopy',  d && d.querySelector('.d-copy'));
     fill('mTags',  d && d.querySelector('.d-tags'));
     fill('mLinks', d && d.querySelector('.d-links'));
@@ -521,59 +585,55 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
     });
   }
 
-  cards.forEach(function (card) {
-    card.addEventListener('click', function () { openCard(card); });
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(card); }
+  tiles.forEach(function (tile) {
+    tile.addEventListener('click', function () { openTile(tile); });
+    tile.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTile(tile); }
     });
   });
 })();
 </script>
 
-<!-- ── HERO GEAR (CAD-style viewport, drag to rotate) ── -->
+<!-- ── HERO MODEL ──
+     Placeholder: a monochrome wireframe gear drawn on the canvas.
+     When the STEP file arrives it gets converted to .glb and rendered here with three.js instead. -->
 <script>
 (() => {
   const cv = document.getElementById('viewport');
   const ctx = cv.getContext('2d');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── build a spur gear as 3D line segments ──
-  const segs = [];               // [x1,y1,z1,x2,y2,z2,kind]
-  const T = 0.26;                // thickness
-  const N = 20, Ro = 1, Rr = 0.86;
+  // spur gear as 3D line segments: [x1,y1,z1,x2,y2,z2,kind]
+  const segs = [];
+  const T = 0.26, N = 20, Ro = 1, Rr = 0.86;
   const ring = (pts, z, kind) => { for (let i = 0; i < pts.length; i++) { const a = pts[i], b = pts[(i+1)%pts.length]; segs.push([a[0],a[1],z,b[0],b[1],z,kind]); } };
   const prof = [];
   for (let i = 0; i < N; i++) {
     const a = i / N * Math.PI * 2, w = Math.PI * 2 / N;
-    const pts = [[Rr, a], [Ro, a + w*.18], [Ro, a + w*.42], [Rr, a + w*.6]];
-    for (const [r, t] of pts) prof.push([r*Math.cos(t), r*Math.sin(t)]);
+    for (const [r, t] of [[Rr, a], [Ro, a + w*.18], [Ro, a + w*.42], [Rr, a + w*.6]]) prof.push([r*Math.cos(t), r*Math.sin(t)]);
   }
   ring(prof, T/2, 0); ring(prof, -T/2, 0);
   for (const [x,y] of prof) segs.push([x,y,T/2,x,y,-T/2,0]);
   const circ = (cx, cy, r, n) => Array.from({length:n}, (_,i) => { const t = i/n*Math.PI*2; return [cx + r*Math.cos(t), cy + r*Math.sin(t)]; });
-  // bore with keyway
   const bore = circ(0,0,.2,40).map(([x,y]) => (Math.abs(y) < .045 && x > 0) ? [.25, y] : [x,y]);
   ring(bore, T/2, 1); ring(bore, -T/2, 1);
   for (let i = 0; i < bore.length; i += 5) segs.push([bore[i][0],bore[i][1],T/2,bore[i][0],bore[i][1],-T/2,1]);
-  // hub + lightening holes
   ring(circ(0,0,.36,48), T/2 + .05, 1); ring(circ(0,0,.36,48), -T/2 - .05, 1);
   for (let k = 0; k < 6; k++) {
     const t = k/6*Math.PI*2, h = circ(.6*Math.cos(t), .6*Math.sin(t), .11, 28);
     ring(h, T/2, 1); ring(h, -T/2, 1);
   }
-  // web inner rim
   ring(circ(0,0,.76,64), T/2, 1); ring(circ(0,0,.76,64), -T/2, 1);
 
-  // ── view ──
-  let yaw = -0.6, pitch = 0.55, vy = reduce ? 0 : 0.0022, drag = null;
+  let yaw = -0.6, pitch = 0.55, vy = reduce ? 0 : 0.0018, drag = null;
   let W, H, dpr, cx, cy, S;
   const size = () => {
     dpr = Math.min(devicePixelRatio || 1, 2);
     const r = cv.getBoundingClientRect(); W = r.width; H = r.height;
     cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    const narrow = W < 700;
-    cx = narrow ? W*.5 : W*.72; cy = narrow ? H*.36 : H*.46;
-    S = Math.min(narrow ? W*.34 : W*.17, H*.32);
+    const narrow = W < 760;
+    cx = narrow ? W*.55 : W*.7; cy = narrow ? H*.32 : H*.45;
+    S = Math.min(narrow ? W*.36 : W*.18, H*.3);
     if (reduce) draw();
   };
   const proj = (x,y,z) => {
@@ -583,30 +643,16 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
     const f = 4.2 / (4.2 + Z);
     return [cx + X*S*f, cy + Y*S*f, Z];
   };
-  const wire = [209,207,221], acc = [141,133,177];
-  function axes() {
-    const ox = W - 56, oy = H - 40, L = 22;
-    [[1,0,0,'x'],[0,-1,0,'y'],[0,0,1,'z']].forEach(([x,y,z,l]) => {
-      const cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-      let X = x*cyw + z*syw, Z = -x*syw + z*cyw, Y = y*cp - Z*sp;
-      ctx.strokeStyle = 'rgba(141,133,177,.8)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(ox,oy); ctx.lineTo(ox + X*L, oy + Y*L); ctx.stroke();
-      ctx.fillStyle = 'rgba(177,175,188,.7)'; ctx.font = '10px "Space Mono", monospace';
-      ctx.fillText(l, ox + X*(L+7) - 3, oy + Y*(L+7) + 3);
-    });
-  }
   function draw() {
     ctx.clearRect(0,0,W,H);
     ctx.lineWidth = 1;
     for (const s of segs) {
       const a = proj(s[0],s[1],s[2]), b = proj(s[3],s[4],s[5]);
-      const d = (a[2] + b[2]) / 2;                 // -1.2 (near) .. 1.2 (far)
-      const al = Math.max(.12, Math.min(.85, .5 - d*.4));
-      const c = s[6] ? acc : wire;
-      ctx.strokeStyle = `rgba(${c[0]},${c[1]},${c[2]},${s[6] ? al*.9 : al})`;
+      const d = (a[2] + b[2]) / 2;
+      const al = Math.max(.08, Math.min(.75, .45 - d*.38)) * (s[6] ? .6 : 1);
+      ctx.strokeStyle = `rgba(242,242,242,${al})`;
       ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke();
     }
-    axes();
   }
   function loop() { if (!drag) yaw += vy; draw(); requestAnimationFrame(loop); }
 
@@ -621,7 +667,6 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
   cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
   addEventListener('resize', size);
   size();
-  if (document.fonts) document.fonts.ready.then(() => reduce && draw());
   reduce ? draw() : loop();
 })();
 </script>
