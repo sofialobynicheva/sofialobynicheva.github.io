@@ -239,20 +239,20 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
     <!-- Motion Tracking Spotlight -->
     <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly" loading="lazy"></div>
+      <div class="card-media"><img src="img/spotlight/assembly-cad.jpg" alt="Motion tracking spotlight full assembly" loading="lazy"></div>
       <div class="card-body">
         <div class="card-top"><h3 class="card-title">Motion Tracking Spotlight</h3><span class="card-when">In progress</span></div>
         <p class="card-sum">A ring of PIR sensors picks up motion and a Raspberry Pi points a servo gimbal spotlight at it. The enclosure, sensor mounts, and gimbal brackets are all custom and printed.</p>
       </div>
       <div class="detail" hidden>
-        <div class="slide"><img src="cadbetterlook.jpg" alt="Motion tracking spotlight full assembly"></div>
-        <div class="slide"><img src="diff angle.jpeg" alt="Spotlight housing alternate angle" loading="lazy"></div>
-        <div class="slide"><img src="oterview.jpeg" alt="System mounted overview" loading="lazy"></div>
-        <div class="slide"><img src="topview1.jpg" alt="Spotlight top view showing gimbal" loading="lazy"></div>
-        <div class="slide"><video src="motionsensor.mp4" autoplay muted loop playsinline></video></div>
-        <div class="slide"><img src="inside.jpeg" alt="Interior electronics and wiring" loading="lazy"></div>
-        <div class="slide"><img src="pir-attachment.jpg.png" alt="PIR sensor attachment bracket CAD model" loading="lazy"></div>
-        <div class="slide"><img src="pir-enclosure.jpg.png" alt="PIR sensor enclosure with threaded dome cap CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/assembly-cad.jpg" alt="Motion tracking spotlight full assembly"></div>
+        <div class="slide"><img src="img/spotlight/housing.jpeg" alt="Spotlight housing alternate angle" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/overview.jpeg" alt="System mounted overview" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/top.jpg" alt="Spotlight top view showing gimbal" loading="lazy"></div>
+        <div class="slide"><video src="img/spotlight/demo.mp4" autoplay muted loop playsinline></video></div>
+        <div class="slide"><img src="img/spotlight/electronics.jpeg" alt="Interior electronics and wiring" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/pir-bracket-cad.png" alt="PIR sensor attachment bracket CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/spotlight/pir-enclosure-cad.png" alt="PIR sensor enclosure with threaded dome cap CAD model" loading="lazy"></div>
         <div class="d-copy">
           <p>A ring of HC-SR501 PIR sensors covers almost every direction. When one trips, a Raspberry Pi Zero 2 WH works out which way it faced and sends I2C commands to a 16-channel PWM driver, which moves a 2-axis servo gimbal to point the spotlight at it.</p>
           <p>The PWM driver handles the servo timing so the Pi doesn't have to. That keeps the Pi's GPIO free and avoids jitter from the OS scheduler. The lamp switches through an optocoupler-isolated relay so inductive kickback from the lamp circuit can't reach the Pi. A 12V supply runs through an XL4015 buck converter to give the Pi and servos a 5V rail.</p>
@@ -266,24 +266,24 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
     <!-- Solar Sentry -->
     <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" style="object-position: center 70%;" loading="lazy"></div>
+      <div class="card-media"><img src="img/solar/battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" style="object-position: center 70%;" loading="lazy"></div>
       <div class="card-body">
         <div class="card-top"><h3 class="card-title">Solar Sentry Light</h3><span class="card-when">2025</span></div>
         <p class="card-sum">Off-grid 12V solar lighting for the street.</p>
       </div>
       <div class="detail" hidden>
-        <div class="slide"><img src="battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" loading="lazy"></div>
-        <div class="slide"><img src="box.jpg" alt="Weatherproof solar enclosure" loading="lazy"></div>
-        <div class="slide"><img src="solar controlelr.jpg" alt="PWM/MPPT solar charge controller" loading="lazy"></div>
-        <div class="slide"><img src="panels.jpg" alt="Three 100W solar panels mounted" loading="lazy"></div>
-        <div class="slide"><img src="solar-controller-base.jpg.png" alt="Elevated controller base CAD model" loading="lazy"></div>
-        <div class="slide"><img src="solar-fan-stand.jpg.png" alt="Angled fan bracket CAD model" loading="lazy"></div>
-        <div class="slide"><img src="solar-vent-housing.jpg.png" alt="Dual fan vent housing CAD model" loading="lazy"></div>
-        <div class="slide"><img src="solar-vent-pipe.jpg.png" alt="45-degree vent pipe CAD model" loading="lazy"></div>
-        <div class="slide"><img src="last thing fdor solar sentry.png" alt="Solar enclosure full assembly CAD" loading="lazy"></div>
-        <div class="slide"><img src="light.jpg" alt="LED security lights installed" loading="lazy"></div>
-        <div class="slide"><img src="solarsentrybefore.jpg" alt="Street before lighting installation" loading="lazy"></div>
-        <div class="slide"><img src="solarsentryafter.jpg" alt="Street illuminated after installation" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/battery.jpg" alt="100Ah LiFePO4 battery with wiring harness" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/enclosure.jpg" alt="Weatherproof solar enclosure" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/controller.jpg" alt="PWM/MPPT solar charge controller" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/panels.jpg" alt="Three 100W solar panels mounted" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/controller-base-cad.png" alt="Elevated controller base CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/fan-bracket-cad.png" alt="Angled fan bracket CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/vent-housing-cad.png" alt="Dual fan vent housing CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/vent-pipe-cad.png" alt="45-degree vent pipe CAD model" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/enclosure-assembly-cad.png" alt="Solar enclosure full assembly CAD" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/lights.jpg" alt="LED security lights installed" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/street-before.jpg" alt="Street before lighting installation" loading="lazy"></div>
+        <div class="slide"><img src="img/solar/street-after.jpg" alt="Street illuminated after installation" loading="lazy"></div>
         <div class="d-copy">
           <p>Fully 12V DC and off-grid. Three 100W panels charge a 100Ah LiFePO4 battery through a charge controller. A 10AWG feeder runs from the backyard to keep voltage drop down over the long distance. From there, 14AWG landscape wire and Wago 221 connectors split power out to the lights, so any section can be isolated if something fails.</p>
           <p>It has two modes. Two 18W lights and one 36W light run from dusk to dawn (72W total). A separate 36W flood bar stays off until it detects motion, then runs for about 30 seconds. In Texas sun the battery is full by 2 PM, and it holds about 2.5 nights of reserve when it's overcast.</p>
@@ -297,15 +297,15 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
     <!-- Duramax Fuel Leak Diverter -->
     <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
+      <div class="card-media"><img src="img/fuel-diverter/installed.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
       <div class="card-body">
         <div class="card-top"><h3 class="card-title">Duramax Fuel Leak Diverter</h3><span class="card-when">2025</span></div>
         <p class="card-sum">The 3.0L Duramax fill hose leaks fuel onto the suspension, and GM never released a fix. This diverter sends the drip to the ground instead.</p>
       </div>
       <div class="detail" hidden>
-        <div class="slide"><img src="fuel diverter1.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
-        <div class="slide"><img src="fuel diverter before.jpeg" alt="Fuel hose leak location before fix" loading="lazy"></div>
-        <div class="slide"><img src="Screenshot 2026-08-26 002239.png" alt="Fuel diverter Fusion 360 model" loading="lazy"></div>
+        <div class="slide"><img src="img/fuel-diverter/installed.jpeg" alt="Custom diverter installed on vehicle" loading="lazy"></div>
+        <div class="slide"><img src="img/fuel-diverter/leak.jpeg" alt="Fuel hose leak location before fix" loading="lazy"></div>
+        <div class="slide"><img src="img/fuel-diverter/diverter-cad.png" alt="Fuel diverter Fusion 360 model" loading="lazy"></div>
         <div class="d-copy">
           <p>The 3.0L Duramax has a known fill hose leak that drips fuel onto the suspension and wears it out faster. GM acknowledged it in a technical service bulletin but never released a fix. The fix here is a custom diverter that sends the drip past the suspension and onto the ground.</p>
         </div>
@@ -316,16 +316,16 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
     <!-- S650 Front End Repair -->
     <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="puttingontire.jpg" alt="Reinstalling wheel" loading="lazy"></div>
+      <div class="card-media"><img src="img/mustang-front/wheel.jpg" alt="Reinstalling wheel" loading="lazy"></div>
       <div class="card-body">
         <div class="card-top"><h3 class="card-title">S650 Mustang Front End Repair</h3><span class="card-when">2026</span></div>
         <p class="card-sum">Took the front end apart after a parking lot accident.</p>
       </div>
       <div class="detail" hidden>
-        <div class="slide"><img src="puttingontire.jpg" alt="Reinstalling wheel" loading="lazy"></div>
-        <div class="slide"><img src="lugnuts.jpg" alt="Torquing lug nuts to spec" loading="lazy"></div>
-        <div class="slide"><img src="carfaraway.JPG" alt="S650 Mustang" loading="lazy"></div>
-        <div class="slide"><img src="bumpercloseupshotjpeg.jpeg" alt="Bumper detail" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/wheel.jpg" alt="Reinstalling wheel" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/lug-nuts.jpg" alt="Torquing lug nuts to spec" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/car.jpg" alt="S650 Mustang" loading="lazy"></div>
+        <div class="slide"><img src="img/mustang-front/bumper.jpeg" alt="Bumper detail" loading="lazy"></div>
         <div class="d-copy">
           <p>After a parking lot accident on my 2025 S650 EcoBoost Mustang, I got shop quotes around $2,200 and decided to take the front end apart myself instead. That meant the bumper cover and all the trim, both side markers, the left headlight, both front wheel well covers, the inner fender lining, and the rocker panel. There were no tutorials for removing the rocker panel on the S650, so I worked it out on the car. A shop did the paint correction and clear coat respray, and I put everything back together afterward.</p>
         </div>
@@ -336,15 +336,15 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
     <!-- MBRP Catback Exhaust -->
     <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="exhaustedge.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
+      <div class="card-media"><img src="img/exhaust/tip.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
       <div class="card-body">
         <div class="card-top"><h3 class="card-title">MBRP Catback Exhaust</h3><span class="card-when">2026</span></div>
         <p class="card-sum">MBRP Race Series catback on my 2025 S650 EcoBoost.</p>
       </div>
       <div class="detail" hidden>
-        <div class="slide"><img src="exhaustedge.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
-        <div class="slide"><img src="exhaustrightview.jpg" alt="Exhaust system right side view" loading="lazy"></div>
-        <div class="slide"><img src="Exhaustsetupbottom.jpg" alt="Exhaust hangers and undercarriage routing" loading="lazy"></div>
+        <div class="slide"><img src="img/exhaust/tip.jpg" alt="MBRP exhaust tip at bumper cutout" loading="lazy"></div>
+        <div class="slide"><img src="img/exhaust/side.jpg" alt="Exhaust system right side view" loading="lazy"></div>
+        <div class="slide"><img src="img/exhaust/underside.jpg" alt="Exhaust hangers and undercarriage routing" loading="lazy"></div>
         <div class="d-copy">
           <p>I put an MBRP Race Series catback exhaust on my 2025 S650 EcoBoost Mustang. Most of the work was getting the car up safely: finding the right jacking points on the S650 so I didn't damage the floor pans, and supporting it well enough to work underneath. Then I unbolted the stock exhaust from the catalytic converter back and fit the new one. It took some adjusting before the hangers seated properly. It sounds a lot different from stock and needed no tuning.</p>
         </div>
@@ -371,16 +371,16 @@ footer .wrap { padding-top: 1.4rem; padding-bottom: 2rem; display: flex; justify
 
     <!-- Hexapod -->
     <article class="card" tabindex="0" role="button" aria-haspopup="dialog">
-      <div class="card-media"><img src="hex1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
+      <div class="card-media"><img src="img/hexapod/hex-1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
       <div class="card-body">
         <div class="card-top"><h3 class="card-title">Hexapod</h3><span class="card-when">In progress</span></div>
         <p class="card-sum">Six-legged walking robot.</p>
       </div>
       <div class="detail" hidden>
-        <div class="slide"><img src="hex1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
-        <div class="slide"><img src="hex2.jpeg" alt="Hexapod build photo 2" loading="lazy"></div>
-        <div class="slide"><img src="hex3.jpeg" alt="Hexapod build photo 3" loading="lazy"></div>
-        <div class="slide"><img src="hex4.jpeg" alt="Hexapod build photo 4" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-1.jpeg" alt="Hexapod build photo 1" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-2.jpeg" alt="Hexapod build photo 2" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-3.jpeg" alt="Hexapod build photo 3" loading="lazy"></div>
+        <div class="slide"><img src="img/hexapod/hex-4.jpeg" alt="Hexapod build photo 4" loading="lazy"></div>
         <div class="d-copy">
           <p>Six-legged walking robot. Write-up coming as the build progresses.</p>
         </div>
